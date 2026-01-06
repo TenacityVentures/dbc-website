@@ -4,15 +4,19 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const isHomePage = pathname === "/"
 
   const navLinks = [
-    { href: "#about", label: "Who We Are" },
-    { href: "#focus", label: "Focus Areas" },
-    { href: "#gallery", label: "Our Work" },
-    { href: "#contact", label: "Contact" },
+    { href: isHomePage ? "#about" : "/#about", label: "Who We Are" },
+    { href: isHomePage ? "#focus" : "/#focus", label: "Focus Areas" },
+    { href: isHomePage ? "#gallery" : "/#gallery", label: "Our Work" },
+    { href: isHomePage ? "#contact" : "/#contact", label: "Contact" },
   ]
 
   return (
@@ -24,19 +28,25 @@ export function Navigation() {
     >
       <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
         {/* Logo */}
-        <motion.div className="flex items-center gap-3" whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
-          <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-secondary font-bold text-xl shadow-lg">
-            D
-          </div>
-          <div className="flex flex-col">
-            <span className="font-extrabold text-xl leading-none text-primary tracking-tight">
-              DBC <span className="text-blue-600">Sierra Leone</span>
-            </span>
-            <span className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground font-bold mt-1">
-              Empowering Young Lives
-            </span>
-          </div>
-        </motion.div>
+        <Link href="/">
+          <motion.div
+            className="flex items-center gap-3 cursor-pointer"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-secondary font-bold text-xl shadow-lg">
+              D
+            </div>
+            <div className="flex flex-col">
+              <span className="font-extrabold text-xl leading-none text-primary tracking-tight">
+                DBC <span className="text-blue-600">Sierra Leone</span>
+              </span>
+              <span className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground font-bold mt-1">
+                Empowering Young Lives
+              </span>
+            </div>
+          </motion.div>
+        </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8 text-sm font-bold text-slate-600">
@@ -58,7 +68,7 @@ export function Navigation() {
             transition={{ delay: 0.4 }}
           >
             <Button asChild className="bg-secondary text-primary hover:bg-secondary/90 rounded-full shadow-md">
-              <a href="#donate">Donate</a>
+              <a href={isHomePage ? "#donate" : "/#donate"}>Donate</a>
             </Button>
           </motion.div>
         </div>
@@ -91,7 +101,7 @@ export function Navigation() {
                 </a>
               ))}
               <a
-                href="#donate"
+                href={isHomePage ? "#donate" : "/#donate"}
                 onClick={() => setMobileMenuOpen(false)}
                 className="bg-secondary text-primary text-center py-3 rounded-xl hover:bg-secondary/90 transition-colors"
               >
