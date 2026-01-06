@@ -18,8 +18,8 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/70 to-transparent" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="max-w-2xl">
+      <div className="w-full max-w-7xl mx-auto px-6 relative z-10">
+        <div className="max-w-7xl py-32 w-100%">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
