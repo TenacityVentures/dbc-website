@@ -94,15 +94,19 @@ export function Navigation() {
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="hover:text-primary transition-colors"
+                  onClick={(e) => {
+                    setTimeout(() => setMobileMenuOpen(false), 100)
+                  }}
+                  className="hover:text-primary transition-colors text-slate-600 py-2"
                 >
                   {link.label}
                 </a>
               ))}
               <a
                 href={isHomePage ? "#donate" : "/#donate"}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={(e) => {
+                  setTimeout(() => setMobileMenuOpen(false), 100)
+                }}
                 className="bg-secondary text-primary text-center py-3 rounded-xl hover:bg-secondary/90 transition-colors"
               >
                 Donate
