@@ -10,39 +10,39 @@ export function GallerySection() {
 
   const galleryImages = [
     {
-      src: "/african-children-receiving-school-materials-books-.jpg",
+      src: "/team.jpg",
       alt: "School Materials Distribution",
       caption: "School Materials Distribution",
       subcaption: "Empowering 40+ children annually",
       size: "large",
     },
     {
-      src: "/african-children-learning-reading-books-classroom-.jpg",
+      src: "/img2.jpg",
       alt: "Education Program",
       caption: "Classroom Learning",
       size: "small",
     },
     {
-      src: "/happy-african-children-playing-smiling-sierra-leon.jpg",
+      src: "/img3.jpg",
       alt: "Community Support",
       caption: "Child Protection Activities",
       size: "small",
     },
     {
-      src: "/community-meeting-village-sierra-leone-families-to.jpg",
+      src: "/community.jpg",
       alt: "Community Development",
       caption: "Community Development Meetings",
       subcaption: "Building stronger families",
       size: "medium",
     },
     {
-      src: "/african-children-studying-in-classroom-sierra-leon.jpg",
+      src: "/kids.jpg",
       alt: "Students in class",
       caption: "Quality Education",
       size: "small",
     },
     {
-      src: "/african-children-playing-in-sierra-leone-village-c.jpg",
+      src: "/img1.jpg",
       alt: "Children playing",
       caption: "Health & Recreation",
       size: "small",

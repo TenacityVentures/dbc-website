@@ -94,14 +94,16 @@ export function AboutSection() {
             className="order-1 lg:order-2 grid grid-cols-2 gap-4"
           >
             <img
-              src="/african-children-studying-in-classroom-sierra-leon.jpg"
+              src="/kids.jpg"
               className="rounded-3xl shadow-xl mt-12 h-64 w-full object-cover"
               alt="Focus"
+              loading="lazy"
             />
             <img
-              src="/happy-african-children-smiling-sierra-leone-educat.jpg"
+              src="/img1.jpg"
               className="rounded-3xl shadow-xl h-64 w-full object-cover"
               alt="Education"
+              loading="lazy"
             />
             <div className="col-span-2 bg-primary p-8 rounded-3xl text-white shadow-2xl">
               <h4 className="font-bold mb-4 text-secondary tracking-widest uppercase text-xs">Our Core Values</h4>

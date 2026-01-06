@@ -10,9 +10,10 @@ export function HeroSection() {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img
-          src="/african-children-playing-in-sierra-leone-village-c.jpg"
+          src="/landing.jpg"
           className="w-full h-full object-cover opacity-30"
           alt="Children in Sierra Leone"
+          loading="eager"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/70 to-transparent" />
       </div>
