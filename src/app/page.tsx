@@ -319,7 +319,7 @@ export default function Home() {
                   Contact
                 </h4>
                 <p>
-                  <strong>Phone:</strong> +232 76 762965
+                  <strong>Phone:</strong> <a href="tel:+23276762965" className="hover:text-blue-600 transition-colors">+232 76 762965</a>
                 </p>
                 <p>
                   <strong>Email:</strong> mohamedskillz32@gmail.com

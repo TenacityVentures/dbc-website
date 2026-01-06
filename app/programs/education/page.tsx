@@ -59,7 +59,7 @@ export default function EducationPage() {
               className="relative h-[400px] rounded-3xl overflow-hidden shadow-2xl"
             >
               <img
-                src="/african-children-learning-reading-books-classroom-.jpg"
+                src="/kids.jpg"
                 alt="Children learning in classroom"
                 className="w-full h-full object-cover"
               />

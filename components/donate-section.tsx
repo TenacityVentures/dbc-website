@@ -52,7 +52,9 @@ export function DonateSection() {
           </Button>
           <p className="text-center mt-6 text-[11px] font-bold text-slate-400 uppercase tracking-widest flex items-center justify-center gap-2">
             <Phone className="w-3 h-3" />
-            Contact us at +232 76 762965
+            <a href="tel:+23276762965" className="hover:text-secondary transition-colors">
+              Contact us at +232 76 762965
+            </a>
           </p>
         </div>
       </motion.div>

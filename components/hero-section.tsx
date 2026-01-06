@@ -11,7 +11,7 @@ export function HeroSection() {
       <div className="absolute inset-0">
         <img
           src="/landing.jpg"
-          className="w-full h-full object-cover opacity-30"
+          className="w-full h-full mt-20 pl-0 object-cover opacity-30"
           alt="Children in Sierra Leone"
           loading="eager"
         />

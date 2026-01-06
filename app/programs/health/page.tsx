@@ -58,7 +58,7 @@ export default function HealthPage() {
               className="relative h-[400px] rounded-3xl overflow-hidden shadow-2xl"
             >
               <img
-                src="/african-children-playing-in-sierra-leone-village-c.jpg"
+                src="/eating.jpg"
                 alt="Healthy children playing"
                 className="w-full h-full object-cover"
               />

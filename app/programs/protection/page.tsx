@@ -58,7 +58,7 @@ export default function ProtectionPage() {
               className="relative h-[400px] rounded-3xl overflow-hidden shadow-2xl"
             >
               <img
-                src="/happy-african-children-playing-smiling-sierra-leon.jpg"
+                src="/smile.jpg"
                 alt="Happy children playing safely"
                 className="w-full h-full object-cover"
               />
