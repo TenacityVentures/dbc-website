@@ -8,18 +8,18 @@ export function HeroSection() {
   return (
     <header className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-primary">
       {/* Background Image with Overlay */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 md:left-1/2 md:right-0">
         <img
           src="/landing.jpg"
-          className="w-full h-full mt-20 pl-0 object-cover opacity-30"
+          className="w-full h-full mt-20 object-cover opacity-50 md:opacity-70"
           alt="Children in Sierra Leone"
           loading="eager"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/50 to-transparent md:from-transparent md:via-primary/30 md:to-transparent" />
       </div>
 
       <div className="w-full max-w-7xl mx-auto px-6 relative z-10">
-        <div className="max-w-7xl py-32 w-100%">
+        <div className="max-w-7xl py-0 w-100%">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -37,7 +37,8 @@ export function HeroSection() {
             className="text-5xl md:text-7xl font-extrabold text-white mb-8 leading-[1.1]"
           >
             Dream Big for <br />
-            <span className="text-secondary">Children Organization</span>
+            <span className="text-secondary">Children</span><br /> 
+            <span className="text-secondary">Organization</span>
           </motion.h1>
 
           <motion.p
