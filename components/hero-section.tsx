@@ -1,20 +1,45 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function HeroSection() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  
+  const heroImages = [
+    "/landing.jpg",
+    "/kids.jpg",
+    "/team.jpg",
+    "/community.jpg",
+  ]
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length)
+    }, 5000) // Change image every 5 seconds
+
+    return () => clearInterval(interval)
+  }, [heroImages.length])
+
   return (
-    <header className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-primary">
+    <header className="relative h-screen flex items-center pt-20 overflow-hidden bg-primary">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 md:left-1/2 md:right-0">
-        <img
-          src="/landing.jpg"
-          className="w-full h-full mt-20 object-cover opacity-50 md:opacity-70"
-          alt="Children in Sierra Leone"
-          loading="eager"
-        />
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={currentImageIndex}
+            src={heroImages[currentImageIndex]}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.5, md: { opacity: 0.7 } }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
+            className="w-full h-full object-cover object-center opacity-50 md:opacity-70 absolute inset-0"
+            alt="Children in Sierra Leone"
+            loading="eager"
+          />
+        </AnimatePresence>
         <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/50 to-transparent md:from-transparent md:via-primary/30 md:to-transparent" />
       </div>
 
