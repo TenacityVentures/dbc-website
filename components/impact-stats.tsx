@@ -5,9 +5,9 @@ import { useInView } from "framer-motion"
 import { useRef } from "react"
 
 const stats = [
-  { value: "40+", label: "Children Annually" },
-  { value: "5", label: "Communities" },
-  { value: "300+", label: "Indirect Impact" },
+  { value: "40+", label: "Children Supported Annually" },
+  { value: "5", label: "Communities Engaged" },
+  { value: "300+", label: "Community Members Impacted" },
   { value: "2022", label: "Year Established" },
 ]
 

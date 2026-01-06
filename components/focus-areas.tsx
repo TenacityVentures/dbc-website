@@ -9,25 +9,29 @@ const focusAreas = [
   {
     icon: GraduationCap,
     title: "Education",
-    description: "Providing materials and mentorship to ensure success in school for vulnerable children.",
+    description:
+      "We support most vulnerable children with school materials, follow-up, and encouragement to ensure they stay in school and succeed.",
     color: "blue",
   },
   {
     icon: Shield,
     title: "Child Protection",
-    description: "Working with communities to prevent abuse and promote family-based care.",
+    description:
+      "We work with families and communities to protect children, prevent abuse, and promote family-based care.",
     color: "red",
   },
   {
     icon: Heart,
-    title: "Health",
-    description: "Supporting psychosocial well-being and nutrition for healthy child development.",
+    title: "Health & Well-being",
+    description:
+      "We promote child nutrition, psychosocial well-being, and healthy development through community support.",
     color: "green",
   },
   {
     icon: Users,
-    title: "Empowerment",
-    description: "Skills training and livelihoods for families to reach economic self-reliance.",
+    title: "Empowerment & Collaboration",
+    description:
+      "We empower the most vulnerable families through skills training and livelihoods support and collaborate with partners to create sustainable impact.",
     color: "yellow",
   },
 ]

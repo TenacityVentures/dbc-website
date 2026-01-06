@@ -49,18 +49,20 @@ export function AboutSection() {
               variants={itemVariants}
               className="text-4xl font-extrabold text-primary mb-8 text-center lg:text-left"
             >
-              Empowering Families, Protecting Children
+              Who We Are
             </motion.h2>
             <motion.p
               variants={itemVariants}
               className="text-lg text-slate-600 mb-8 leading-relaxed italic border-l-4 border-secondary pl-6"
             >
-              "DBC is a legally constituted, non-political, and non-sectarian non-profit organization operating in
-              Sierra Leone since 2022."
+              "Dream Big for Children Organization (DBC) is a community-based, non-profit organization established in
+              2022 in Sierra Leone."
             </motion.p>
             <motion.p variants={itemVariants} className="text-slate-600 mb-10 leading-relaxed">
-              Guided by our Constitution and aligned with internationally accepted best practices, we believe children
-              thrive best when families are strengthened and communities are supported to care for them.
+              Guided by our Constitution and aligned with internationally accepted best practices in child care and
+              development, we are committed to protecting the most vulnerable children and empowering families to become
+              self-reliant. We believe that children thrive best when families are strengthened and communities are
+              supported to care for them.
             </motion.p>
 
             <motion.div variants={itemVariants} className="grid sm:grid-cols-2 gap-8">
@@ -77,7 +79,8 @@ export function AboutSection() {
                   <Target className="text-blue-600 w-5 h-5" /> Our Mission
                 </h4>
                 <p className="text-sm text-slate-500 leading-relaxed">
-                  To improve lives through education support, child protection, and economic empowerment.
+                  To improve the lives of deprived and vulnerable children and families through education support, child
+                  protection, economic empowerment, and sustainable community development.
                 </p>
               </div>
             </motion.div>
@@ -103,7 +106,13 @@ export function AboutSection() {
             <div className="col-span-2 bg-primary p-8 rounded-3xl text-white shadow-2xl">
               <h4 className="font-bold mb-4 text-secondary tracking-widest uppercase text-xs">Our Core Values</h4>
               <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm font-medium">
-                {["Child-centred Care", "Accountability", "Community Participation", "Sustainability"].map((value) => (
+                {[
+                  "Child-centred Care",
+                  "Accountability & Transparency",
+                  "Community Participation",
+                  "Equity & Inclusion",
+                  "Sustainability",
+                ].map((value) => (
                   <li key={value} className="flex items-center gap-2">
                     <Check className="text-secondary w-4 h-4" /> {value}
                   </li>

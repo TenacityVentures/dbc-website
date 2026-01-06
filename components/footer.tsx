@@ -40,7 +40,7 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="text-white font-bold mb-6">Bo Office Address</h4>
+            <h4 className="text-white font-bold mb-6">Contact Us</h4>
             <ul className="space-y-4 text-sm font-medium">
               <li className="flex gap-4">
                 <MapPin className="text-secondary w-5 h-5 flex-shrink-0" />

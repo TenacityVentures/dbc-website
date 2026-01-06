@@ -26,9 +26,7 @@ export function HeroSection() {
             className="flex items-center gap-3 mb-6"
           >
             <span className="h-px w-8 bg-secondary" />
-            <span className="text-secondary text-xs font-bold uppercase tracking-widest">
-              A Registered Non-Profit in Sierra Leone
-            </span>
+            <span className="text-secondary text-xs font-bold uppercase tracking-widest">Empowering Young Lives</span>
           </motion.div>
 
           <motion.h1
@@ -47,8 +45,8 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="text-xl text-slate-300 mb-10 leading-relaxed max-w-xl"
           >
-            We support vulnerable children within their families and communities so they can grow in safe, caring, and
-            supportive environments.
+            We work with vulnerable children, families, women, and youth to improve child well-being and strengthen
+            families through education, child protection, and sustainable community development.
           </motion.p>
 
           <motion.div
