@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Big for Children (DBC) | Empowering Young Lives in Sierra Leone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .hero-overlay { background: linear-gradient(to right, rgba(0, 31, 63, 0.95), rgba(0, 31, 63, 0.7), transparent); }
+        .bg-navy { background-color: #001F3F; }
+        .text-navy { color: #001F3F; }
+        .bg-gold { background-color: #FDB813; }
+        .text-gold { color: #FDB813; }
+        .border-gold { border-color: #FDB813; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900" x-data="{ mobileMenu: false }">
+
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-navy rounded-lg flex items-center justify-center text-gold font-bold text-xl shadow-lg">D</div>
+                <div class="flex flex-col">
+                    <span class="font-extrabold text-xl leading-none text-navy tracking-tight">DBC <span class="text-blue-600">Sierra Leone</span></span>
+                    <span class="text-[9px] uppercase tracking-[0.2em] text-slate-500 font-bold mt-1">Empowering Young Lives</span>
+                </div>
+            </div>
+
+            <div class="hidden md:flex items-center gap-8 text-sm font-bold text-slate-600">
+                <a href="#about" class="hover:text-navy transition">Who We Are</a>
+                <a href="#focus" class="hover:text-navy transition">Focus Areas</a>
+                <a href="#gallery" class="hover:text-navy transition">Our Work</a>
+                <a href="#contact" class="hover:text-navy transition">Contact</a>
+                <a href="#donate" class="bg-gold text-navy px-6 py-2.5 rounded-full transition hover:scale-105 active:scale-95 shadow-md">Donate</a>
+            </div>
+
+            <button @click="mobileMenu = !mobileMenu" class="md:hidden text-navy text-2xl">
+                <i class="fa-solid" :class="mobileMenu ? 'fa-xmark' : 'fa-bars'"></i>
+            </button>
+        </div>
+
+        <div x-show="mobileMenu" x-transition class="md:hidden bg-white border-b p-6 flex flex-col gap-4 font-bold shadow-xl">
+            <a href="#about" @click="mobileMenu = false">Who We Are</a>
+            <a href="#focus" @click="mobileMenu = false">Focus Areas</a>
+            <a href="#impact" @click="mobileMenu = false">Our Impact</a>
+            <a href="#donate" class="bg-gold text-center py-3 rounded-xl">Donate</a>
+        </div>
+    </nav>
+
+    <header class="relative min-h-screen flex items-center pt-20 overflow-hidden bg-navy">
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&q=80&w=2000" class="w-full h-full object-cover opacity-30" alt="Children in Sierra Leone">
+            <div class="absolute inset-0 hero-overlay"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="max-w-3xl">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="h-px w-8 bg-gold"></span>
+                    <span class="text-gold text-xs font-bold uppercase tracking-widest">A Registered Non-Profit in Sierra Leone</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-8 leading-[1.1]">
+                    Dream Big for <br><span class="text-gold">Children Organization</span>
+                </h1>
+                <p class="text-xl text-slate-300 mb-10 leading-relaxed max-w-xl">
+                    We support vulnerable children within their families and communities so they can grow in safe, caring, and supportive environments.
+                </p>
+                <div class="flex flex-wrap gap-4">
+                    <a href="#about" class="bg-gold text-navy px-8 py-4 rounded-2xl font-bold hover:shadow-xl transition-all flex items-center gap-2">
+                        Read Our Mission <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    <a href="#donate" class="bg-white/10 text-white border border-white/20 backdrop-blur-sm px-8 py-4 rounded-2xl font-bold hover:bg-white/20 transition-all">
+                        Support a Child
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <div class="order-2 lg:order-1">
+                    <h3 class="text-blue-600 font-bold uppercase tracking-[0.2em] text-xs mb-4 text-center lg:text-left">About the Organization</h3>
+                    <h2 class="text-4xl font-extrabold text-navy mb-8 text-center lg:text-left">Empowering Families, Protecting Children</h2>
+                    <p class="text-lg text-slate-600 mb-8 leading-relaxed italic border-l-4 border-gold pl-6">
+                        "DBC is a legally constituted, non-political, and non-sectarian non-profit organization operating in Sierra Leone since 2022."
+                    </p>
+                    <p class="text-slate-600 mb-10 leading-relaxed">
+                        Guided by our Constitution and aligned with internationally accepted best practices, we believe children thrive best when families are strengthened and communities are supported to care for them.
+                    </p>
+                    
+                    <div class="grid sm:grid-cols-2 gap-8">
+                        <div>
+                            <h4 class="font-bold text-navy mb-3"><i class="fa-solid fa-eye text-gold mr-2"></i> Our Vision</h4>
+                            <p class="text-sm text-slate-500 leading-relaxed">A Sierra Leone where every child has the opportunity to thrive, learn, and reach their full potential.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-navy mb-3"><i class="fa-solid fa-bullseye text-blue-600 mr-2"></i> Our Mission</h4>
+                            <p class="text-sm text-slate-500 leading-relaxed">To improve lives through education support, child protection, and economic empowerment.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2 grid grid-cols-2 gap-4">
+                    <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?auto=format&fit=crop&q=80&w=800" class="rounded-3xl shadow-xl mt-12 h-64 w-full object-cover" alt="Focus">
+                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&q=80&w=800" class="rounded-3xl shadow-xl h-64 w-full object-cover" alt="Education">
+                    <div class="col-span-2 bg-navy p-8 rounded-3xl text-white shadow-2xl">
+                        <h4 class="font-bold mb-4 text-gold tracking-widest uppercase text-xs">Our Core Values</h4>
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm font-medium">
+                            <li><i class="fa-solid fa-check text-gold mr-2"></i> Child-centred Care</li>
+                            <li><i class="fa-solid fa-check text-gold mr-2"></i> Accountability</li>
+                            <li><i class="fa-solid fa-check text-gold mr-2"></i> Community Participation</li>
+                            <li><i class="fa-solid fa-check text-gold mr-2"></i> Sustainability</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="focus" class="py-24 bg-slate-100">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-4xl font-extrabold text-navy mb-4">How We Help</h2>
+                <p class="text-slate-600 font-medium">Focused strategies for long-term community transformation.</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-8 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all border border-transparent hover:border-gold group">
+                    <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-navy group-hover:text-gold transition">
+                        <i class="fa-solid fa-graduation-cap text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-3">Education</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Providing materials and mentorship to ensure success in school for vulnerable children.</p>
+                </div>
+                <div class="bg-white p-8 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all border border-transparent hover:border-gold group">
+                    <div class="w-14 h-14 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-navy group-hover:text-gold transition">
+                        <i class="fa-solid fa-shield-halved text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-3">Child Protection</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Working with communities to prevent abuse and promote family-based care.</p>
+                </div>
+                <div class="bg-white p-8 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all border border-transparent hover:border-gold group">
+                    <div class="w-14 h-14 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-navy group-hover:text-gold transition">
+                        <i class="fa-solid fa-hand-holding-heart text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-3">Health</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Supporting psychosocial well-being and nutrition for healthy child development.</p>
+                </div>
+                <div class="bg-white p-8 rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all border border-transparent hover:border-gold group">
+                    <div class="w-14 h-14 bg-yellow-50 text-yellow-600 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-navy group-hover:text-gold transition">
+                        <i class="fa-solid fa-users-gear text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-3">Empowerment</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Skills training and livelihoods for families to reach economic self-reliance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-24 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                <div class="max-w-xl">
+                    <h2 class="text-4xl font-extrabold text-navy mb-4">Our Work in the Field</h2>
+                    <p class="text-slate-600">Real impact across 5 communities in Bo, Sierra Leone.</p>
+                </div>
+                <div class="text-navy font-bold flex items-center gap-2 border-b-2 border-gold pb-2 uppercase text-xs tracking-widest">
+                    Witness the Change
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 h-[600px]">
+                <div class="col-span-2 row-span-2 relative overflow-hidden rounded-[2.5rem] shadow-lg group">
+                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" alt="Work 1">
+                    <div class="absolute bottom-0 p-8 text-white bg-gradient-to-t from-black/80 to-transparent w-full">
+                        <p class="font-bold text-lg">School Materials Distribution</p>
+                        <p class="text-sm opacity-80">Empowering 40+ children annually</p>
+                    </div>
+                </div>
+                <div class="relative overflow-hidden rounded-[2.5rem] shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1542810634-71277d95dcbb?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover hover:scale-105 transition duration-700" alt="Work 2">
+                </div>
+                <div class="relative overflow-hidden rounded-[2.5rem] shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover hover:scale-105 transition duration-700" alt="Work 3">
+                </div>
+                <div class="col-span-2 relative overflow-hidden rounded-[2.5rem] shadow-lg group">
+                    <img src="https://plus.unsplash.com/premium_photo-1663040000854-152066c8986b?q=80&w=1000&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" alt="Work 4">
+                    <div class="absolute bottom-0 p-8 text-white bg-gradient-to-t from-black/80 to-transparent w-full">
+                        <p class="font-bold text-lg">Community Development Meetings</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="impact" class="py-24 bg-navy text-white relative">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-12">
+                <div>
+                    <div class="text-6xl font-extrabold text-gold mb-4 tracking-tighter">40+</div>
+                    <div class="text-[10px] uppercase tracking-[0.3em] font-bold text-slate-400">Children Annually</div>
+                </div>
+                <div>
+                    <div class="text-6xl font-extrabold text-gold mb-4 tracking-tighter">5</div>
+                    <div class="text-[10px] uppercase tracking-[0.3em] font-bold text-slate-400">Communities</div>
+                </div>
+                <div>
+                    <div class="text-6xl font-extrabold text-gold mb-4 tracking-tighter">300+</div>
+                    <div class="text-[10px] uppercase tracking-[0.3em] font-bold text-slate-400">Indirect Impact</div>
+                </div>
+                <div>
+                    <div class="text-6xl font-extrabold text-gold mb-4 tracking-tighter">2022</div>
+                    <div class="text-[10px] uppercase tracking-[0.3em] font-bold text-slate-400">Year Established</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="donate" class="py-24 px-6 bg-white">
+        <div class="max-w-6xl mx-auto grid lg:grid-cols-2 bg-slate-50 rounded-[3rem] overflow-hidden shadow-2xl">
+            <div class="p-12 lg:p-20 bg-navy text-white">
+                <h2 class="text-4xl font-extrabold mb-8">Partner With Us</h2>
+                <p class="text-slate-300 mb-10 text-lg leading-relaxed">Together, we can create lasting change. We seek partnerships that support family strengthening, education, and economic empowerment.</p>
+                <div class="space-y-4 font-bold text-sm">
+                    <div class="flex items-center gap-4"><i class="fa-solid fa-circle-check text-gold"></i> Organizations & Institutions</div>
+                    <div class="flex items-center gap-4"><i class="fa-solid fa-circle-check text-gold"></i> Individual Benefactors</div>
+                    <div class="flex items-center gap-4"><i class="fa-solid fa-circle-check text-gold"></i> Skills Training Partners</div>
+                </div>
+            </div>
+            <div class="p-12 lg:p-20 flex flex-col justify-center">
+                <h3 class="text-2xl font-bold text-navy mb-6">Support a Future</h3>
+                <p class="text-slate-500 mb-8 leading-relaxed">Your contribution—big or small—helps a child stay in school and a family become stronger. Online donation options are coming soon.</p>
+                <a href="mailto:mohamedskillz32@gmail.com" class="block text-center bg-gold text-navy py-5 rounded-2xl font-bold text-lg hover:shadow-xl transition-all">
+                    Send a Partnership Inquiry
+                </a>
+                <p class="text-center mt-6 text-[11px] font-bold text-slate-400 uppercase tracking-widest">Contact us at +232 76 762965</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-slate-950 text-slate-500 pt-24 pb-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-16 pb-16 border-b border-slate-900">
+                <div>
+                    <div class="flex items-center gap-3 mb-6 text-white">
+                        <div class="w-8 h-8 bg-gold rounded flex items-center justify-center text-navy font-bold">D</div>
+                        <span class="font-extrabold text-xl tracking-tighter">DBC Organization</span>
+                    </div>
+                    <p class="text-sm leading-relaxed mb-6">Established 2022 in Sierra Leone. Legally constituted, non-political, and non-sectarian. Dedicated to the well-being of the most vulnerable.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-gold hover:text-navy transition"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-gold hover:text-navy transition"><i class="fa-brands fa-twitter text-sm"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">Bo Office Address</h4>
+                    <ul class="space-y-4 text-sm font-medium">
+                        <li class="flex gap-4"><i class="fa-solid fa-location-dot text-gold"></i> Simbaru-2, Hanci Road, Bo, Sierra Leone</li>
+                        <li class="flex gap-4"><i class="fa-solid fa-phone text-gold"></i> +232 76 762965</li>
+                        <li class="flex gap-4"><i class="fa-solid fa-envelope text-gold"></i> mohamedskillz32@gmail.com</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-bold mb-6">Compliance</h4>
+                    <ul class="space-y-4 text-xs font-bold uppercase tracking-widest">
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-certificate text-gold"></i> Registered Non-Profit</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-certificate text-gold"></i> Child Care Policy Aligned</li>
+                        <li class="flex items-center gap-3"><i class="fa-solid fa-certificate text-gold"></i> Annual Impact Audit</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-12 text-center text-[10px] uppercase tracking-[0.4em] font-bold">
+                &copy; 2026 Dream Big for Children Organization. Designed for Impact.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

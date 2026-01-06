@@ -45,14 +45,14 @@ export function DonateSection() {
             size="lg"
             className="bg-secondary text-primary hover:bg-secondary/90 py-6 rounded-2xl font-bold text-lg shadow-xl"
           >
-            <a href="mailto:info@dreambigforchildren.org" className="flex items-center justify-center gap-2">
+            <a href="mailto:mohamedskillz32@gmail.com" className="flex items-center justify-center gap-2">
               <Mail className="w-5 h-5" />
               Send a Partnership Inquiry
             </a>
           </Button>
           <p className="text-center mt-6 text-[11px] font-bold text-slate-400 uppercase tracking-widest flex items-center justify-center gap-2">
             <Phone className="w-3 h-3" />
-            Contact us at +232 78 097 222
+            Contact us at +232 76 762965
           </p>
         </div>
       </motion.div>
