@@ -48,7 +48,7 @@ export function GallerySection() {
       size: "small",
     },
     {
-      src: "/happy-african-children-smiling-sierra-leone-educat.jpg",
+      src: "/kids.jpg",
       alt: "Happy children",
       caption: "Empowered Children",
       subcaption: "Creating lasting impact",

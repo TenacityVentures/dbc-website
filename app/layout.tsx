@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     siteName: "Dream Big for Children (DBC)",
     images: [
       {
-        url: "/happy-african-children-smiling-sierra-leone-educat.jpg",
+        url: "/landing.jpg",
         width: 1200,
         height: 630,
         alt: "Dream Big for Children - Empowering young lives in Sierra Leone",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     title: "Dream Big for Children (DBC) | Empowering Young Lives in Sierra Leone",
     description:
       "Supporting vulnerable children in Sierra Leone through education, child protection, health, and economic empowerment programs.",
-    images: ["/happy-african-children-smiling-sierra-leone-educat.jpg"],
+    images: ["/landing.jpg"],
   },
   robots: {
     index: true,
@@ -65,23 +65,20 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  generator: "v0.app",
   icons: {
     icon: [
       {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
+        url: "/web-app-manifest-192x192.png",
+        sizes: "192x192",
+        type: "image/png",
       },
       {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
+        url: "/web-app-manifest-512x512.png",
+        sizes: "512x512",
+        type: "image/png",
       },
     ],
-    apple: "/apple-icon.png",
+    apple: "/web-app-manifest-192x192.png",
   },
 }
 

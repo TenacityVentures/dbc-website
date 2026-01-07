@@ -141,7 +141,7 @@ export default function ProtectionPage() {
               </div>
               <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="/community-meeting-village-sierra-leone-families-to.jpg"
+                  src="/smile.jpg"
                   alt="Community protection meeting"
                   className="w-full h-full object-cover"
                 />

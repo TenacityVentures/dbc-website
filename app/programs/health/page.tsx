@@ -140,7 +140,7 @@ export default function HealthPage() {
               </div>
               <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="/happy-african-children-smiling-sierra-leone-educat.jpg"
+                  src="/eating.jpg"
                   alt="Healthy happy children"
                   className="w-full h-full object-cover"
                 />

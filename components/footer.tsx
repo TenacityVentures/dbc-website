@@ -11,9 +11,11 @@ export function Footer() {
           {/* About */}
           <div>
             <div className="flex items-center gap-3 mb-6 text-white">
-              <div className="w-8 h-8 bg-secondary rounded flex items-center justify-center text-primary font-bold">
-                D
-              </div>
+              <img
+                src="/logoIcon.jpg"
+                alt="DBC Logo"
+                className="w-10 h-10 object-contain"
+              />
               <span className="font-extrabold text-xl tracking-tighter">DBC Organization</span>
             </div>
             <p className="text-sm leading-relaxed mb-6">

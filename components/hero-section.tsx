@@ -80,24 +80,26 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="flex flex-wrap gap-4"
+            className="flex flex-row gap-3 sm:gap-4"
           >
             <Button
               asChild
               size="lg"
-              className="bg-secondary text-primary hover:bg-secondary/90 px-8 py-6 text-base font-bold rounded-2xl shadow-xl"
+              className="bg-secondary text-primary hover:bg-secondary/90 px-4 sm:px-8 py-4 sm:py-6 text-sm sm:text-base font-bold rounded-2xl shadow-xl flex-1 sm:flex-none"
             >
-              <a href="#about" className="flex items-center gap-2">
-                Read Our Mission <ArrowRight className="w-4 h-4" />
+              <a href="#about" className="flex items-center justify-center gap-2">
+                <span className="hidden sm:inline">Read Our Mission</span>
+                <span className="sm:hidden">Our Mission</span>
+                <ArrowRight className="w-4 h-4" />
               </a>
             </Button>
             <Button
               asChild
               size="lg"
               variant="outline"
-              className="bg-white/10 text-white border-white/20 backdrop-blur-sm px-8 py-6 text-base font-bold rounded-2xl hover:bg-white/20"
+              className="bg-white/10 text-white border-white/20 backdrop-blur-sm px-4 sm:px-8 py-4 sm:py-6 text-sm sm:text-base font-bold rounded-2xl hover:bg-white/20 flex-1 sm:flex-none"
             >
-              <a href="#donate">Support a Child</a>
+              <a href="#donate" className="flex items-center justify-center">Support a Child</a>
             </Button>
           </motion.div>
         </div>

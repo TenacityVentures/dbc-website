@@ -4,33 +4,35 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(0.99 0 0); /* Off-white */
-  --foreground: oklch(0.22 0.02 264); /* Navy */
+  --background: oklch(0.985 0.002 85); /* Cream White #F9F9F7 */
+  --foreground: oklch(0.27 0.04 240); /* Deep Midnight #1B334B */
   --card: oklch(1 0 0); /* White */
-  --card-foreground: oklch(0.22 0.02 264); /* Navy */
+  --card-foreground: oklch(0.27 0.04 240); /* Deep Midnight */
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.02 264);
-  --primary: oklch(0.22 0.02 264); /* Navy #001F3F */
-  --primary-foreground: oklch(0.98 0 0); /* White */
-  --secondary: oklch(0.8 0.15 85); /* Gold #FDB813 */
-  --secondary-foreground: oklch(0.22 0.02 264); /* Navy */
+  --popover-foreground: oklch(0.27 0.04 240);
+  --primary: oklch(0.27 0.04 240); /* Deep Midnight #1B334B */
+  --primary-foreground: oklch(0.985 0.002 85); /* Cream White */
+  --secondary: oklch(0.68 0.15 195); /* Teal Blue #3AB4C1 */
+  --secondary-foreground: oklch(0.985 0.002 85); /* Cream White */
   --muted: oklch(0.96 0 0);
   --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.8 0.15 85); /* Gold */
-  --accent-foreground: oklch(0.22 0.02 264); /* Navy */
+  --accent: oklch(0.68 0.14 15); /* Soft Coral #F36F76 */
+  --accent-foreground: oklch(0.985 0.002 85); /* Cream White */
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
   --border: oklch(0.94 0 0);
   --input: oklch(0.94 0 0);
-  --ring: oklch(0.8 0.15 85); /* Gold */
+  --ring: oklch(0.8 0.15 85); /* Golden Sun #FDB813 */
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   --radius: 1.5rem;
-  --navy: oklch(0.22 0.02 264);
-  --gold: oklch(0.8 0.15 85);
+  --midnight: oklch(0.27 0.04 240); /* #1B334B */
+  --gold: oklch(0.8 0.15 85); /* #FDB813 */
+  --teal: oklch(0.68 0.15 195); /* #3AB4C1 */
+  --coral: oklch(0.68 0.14 15); /* #F36F76 */
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);

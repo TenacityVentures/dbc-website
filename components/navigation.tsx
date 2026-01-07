@@ -34,15 +34,18 @@ export function Navigation() {
             whileHover={{ scale: 1.02 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-secondary font-bold text-xl shadow-lg">
-              D
-            </div>
+            <img
+              src="/logoIcon.jpg"
+              alt="DBC Logo"
+              className="w-12 h-12 object-contain rounded-lg"
+            />
             <div className="flex flex-col">
               <span className="font-extrabold text-xl leading-none text-primary tracking-tight">
-                DBC <span className="text-blue-600">Sierra Leone</span>
+                DREAM BIG 
+                {/* <span className="text-blue-600">Sierra Leone</span> */}
               </span>
               <span className="text-[9px] uppercase tracking-[0.2em] text-muted-foreground font-bold mt-1">
-                Empowering Young Lives
+                For every child
               </span>
             </div>
           </motion.div>

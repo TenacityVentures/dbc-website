@@ -193,5 +193,3 @@ This project is maintained by the DBC team. For suggestions or issues, please co
 Copyright © 2025 Dream Big for Children. All rights reserved.
 
 ---
-
-**Built with ❤️ using [v0.app](https://v0.app) and [Next.js](https://nextjs.org/)**
