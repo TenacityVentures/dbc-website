@@ -48,7 +48,7 @@ export function GallerySection() {
       size: "small",
     },
     {
-      src: "/kids.jpg",
+      src: "/outside-school.jpg",
       alt: "Happy children",
       caption: "Empowered Children",
       subcaption: "Creating lasting impact",
