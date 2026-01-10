@@ -45,7 +45,12 @@ export function DonateSection() {
             size="lg"
             className="bg-secondary text-primary hover:bg-secondary/90 py-6 rounded-2xl font-bold text-lg shadow-xl"
           >
-            <a href="mailto:mohamedskillz32@gmail.com" className="flex items-center justify-center gap-2">
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=mohamedskillz32@gmail.com&su=Partnership%20Inquiry"
+              className="flex items-center justify-center gap-2"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Mail className="w-5 h-5" />
               Send a Partnership Inquiry
             </a>
