@@ -24,8 +24,8 @@ export function GallerySection() {
     },
     {
       src: "/img3.jpg",
-      alt: "Empowered Children",
-      caption: "Empowered Children",
+      alt: "Empowering Children",
+      caption: "Empowering Children Through Education",
       size: "small",
     },
     {
