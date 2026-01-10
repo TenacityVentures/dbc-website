@@ -146,7 +146,7 @@ export default function EducationPage() {
               </div>
               <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="/kids.jpg"
+                  src="/img3.jpg"
                   alt="Children receiving school materials"
                   className="w-full h-full object-cover"
                 />
