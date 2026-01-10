@@ -18,14 +18,14 @@ export function GallerySection() {
     },
     {
       src: "/img2.jpg",
-      alt: "Education Program",
-      caption: "Classroom Learning",
+      alt: "Child Protection",
+      caption: "Child Protection and Care",
       size: "small",
     },
     {
       src: "/img3.jpg",
-      alt: "Community Support",
-      caption: "Child Protection Activities",
+      alt: "Empowered Children",
+      caption: "Empowered Children",
       size: "small",
     },
     {
@@ -49,8 +49,8 @@ export function GallerySection() {
     },
     {
       src: "/outside-school.jpg",
-      alt: "Happy children",
-      caption: "Empowered Children",
+      alt: "Outdoor Learning",
+      caption: "Outdoor Learning Session",
       subcaption: "Creating lasting impact",
       size: "medium",
     },
