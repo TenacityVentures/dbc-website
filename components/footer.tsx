@@ -32,13 +32,6 @@ export function Footer() {
               >
                 <Facebook className="w-4 h-4" />
               </motion.a>
-              <motion.a
-                href="#"
-                whileHover={{ scale: 1.1 }}
-                className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center hover:bg-secondary hover:text-primary transition-colors"
-              >
-                <Twitter className="w-4 h-4" />
-              </motion.a>
             </div>
           </div>
 
