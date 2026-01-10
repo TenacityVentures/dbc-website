@@ -12,7 +12,7 @@ export function HeroSection() {
     "/communityhappyhandsup.jpg",
     "/img1.jpg",
     "/img3.jpg",
-    "/community2.jpg",
+    "/community-discussion3.jpg",
     "/kidswithballon.jpg",
     "/community.jpg",
     "/schooldevotion.jpg",
