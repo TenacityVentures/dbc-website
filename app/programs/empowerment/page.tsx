@@ -58,7 +58,7 @@ export default function EmpowermentPage() {
               className="relative h-[400px] rounded-3xl overflow-hidden shadow-2xl"
             >
               <img
-                src="/community.jpg"
+                src="/outdoor-community-engagement.jpg"
                 alt="Economic empowerment training"
                 className="w-full h-full object-cover"
               />
