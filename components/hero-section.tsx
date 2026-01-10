@@ -9,10 +9,14 @@ export function HeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   
   const heroImages = [
-    "/landing.jpg",
-    "/kids.jpg",
-    "/team.jpg",
+    "/communityhappyhandsup.jpg",
+    "/img1.jpg",
+    "/img3.jpg",
+    "/community2.jpg",
+    "/kidswithballon.jpg",
     "/community.jpg",
+    "/schooldevotion.jpg",
+    "/outdoor-community-engagement.jpg"
   ]
 
   useEffect(() => {
@@ -24,18 +28,19 @@ export function HeroSection() {
   }, [heroImages.length])
 
   return (
-    <header className="relative h-screen flex items-center pt-20 overflow-hidden bg-primary">
+    <header className="relative h-screen flex items-center pt-24 overflow-hidden bg-primary">
       {/* Background Image with Overlay */}
-      <div className="absolute inset-0 md:left-1/2 md:right-0">
+      <div className="absolute inset-0">
         <AnimatePresence mode="wait">
           <motion.img
             key={currentImageIndex}
             src={heroImages[currentImageIndex]}
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.5, md: { opacity: 0.7 } }}
+            animate={{ opacity: 0.5
+             }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
-            className="w-full h-full object-cover object-center opacity-50 md:opacity-70 absolute inset-0"
+            className="w-full h-full object-cover object-center opacity-60 md:opacity-80 absolute inset-0"
             alt="Children in Sierra Leone"
             loading="eager"
           />
@@ -43,13 +48,13 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/50 to-transparent md:from-transparent md:via-primary/30 md:to-transparent" />
       </div>
 
-      <div className="w-full max-w-7xl mx-auto px-6 relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-20 relative z-10">
         <div className="max-w-7xl py-0 w-100%">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex items-center gap-3 mb-6"
+            className="flex items-center gap-3 mb-1"
           >
             <span className="h-px w-8 bg-secondary" />
             <span className="text-secondary text-xs font-bold uppercase tracking-widest">Empowering Young Lives</span>
@@ -62,7 +67,7 @@ export function HeroSection() {
             className="text-5xl md:text-7xl font-extrabold text-white mb-8 leading-[1.1]"
           >
             Dream Big for <br />
-            <span className="text-secondary">Children</span><br /> 
+            <span className="text-secondary">Children </span>
             <span className="text-secondary">Organization</span>
           </motion.h1>
 
