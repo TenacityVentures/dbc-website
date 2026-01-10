@@ -94,7 +94,7 @@ export function AboutSection() {
             className="order-1 lg:order-2 grid grid-cols-2 gap-4"
           >
             <img
-              src="/kids.jpg"
+              src="/community2.jpg"
               className="rounded-3xl shadow-xl mt-12 h-64 w-full object-cover"
               alt="Focus"
               loading="lazy"
