@@ -1,0 +1,474 @@
+{
+  "images": [
+    {
+      "id": "img_001",
+      "src": "/community-discussion.jpg",
+      "alt": "Community discussion meeting",
+      "caption": "Community Discussion",
+      "subcaption": "Building stronger families through dialogue",
+      "category": "community",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_002",
+      "src": "/community-discussion2.jpg",
+      "alt": "Community meeting with families",
+      "caption": "Family Engagement Session",
+      "subcaption": "Empowering families across Bo District",
+      "category": "community",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_003",
+      "src": "/community-discussion3.jpg",
+      "alt": "Community gathering",
+      "caption": "Community Gathering",
+      "subcaption": "Coming together for change",
+      "category": "community",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_004",
+      "src": "/community.jpg",
+      "alt": "DBC community work",
+      "caption": "Our Community",
+      "subcaption": "5 communities across Bo District",
+      "category": "community",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_005",
+      "src": "/community2.jpg",
+      "alt": "Community members gathering",
+      "caption": "Community Support Network",
+      "subcaption": "Building resilient communities",
+      "category": "community",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_006",
+      "src": "/communityhappyhandsup.jpg",
+      "alt": "Happy community members celebrating",
+      "caption": "Celebrating Progress",
+      "subcaption": "Joy in every milestone",
+      "category": "community",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_007",
+      "src": "/eating.jpg",
+      "alt": "Children eating nutritious meals",
+      "caption": "Nutrition Support",
+      "subcaption": "Healthy children, bright futures",
+      "category": "health",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_008",
+      "src": "/img1.jpg",
+      "alt": "Children at DBC programs",
+      "caption": "Children Thriving",
+      "subcaption": "Every child deserves a chance",
+      "category": "children",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_009",
+      "src": "/img2.jpg",
+      "alt": "Child protection activities",
+      "caption": "Child Protection in Action",
+      "subcaption": "Safe spaces for every child",
+      "category": "children",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_010",
+      "src": "/img3.jpg",
+      "alt": "Children being empowered",
+      "caption": "Empowering Through Care",
+      "subcaption": "Protection and love for all",
+      "category": "children",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_011",
+      "src": "/kids.jpg",
+      "alt": "Students in class",
+      "caption": "Quality Education",
+      "subcaption": "Learning for a brighter tomorrow",
+      "category": "education",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_012",
+      "src": "/kidsinUniformSelfie.jpg",
+      "alt": "Students in school uniforms",
+      "caption": "Proud Students",
+      "subcaption": "Uniform distribution for 40+ children annually",
+      "category": "education",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_013",
+      "src": "/kidswithballon.jpg",
+      "alt": "Children playing with balloons",
+      "caption": "Joy & Recreation",
+      "subcaption": "Play is essential for healthy development",
+      "category": "children",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_014",
+      "src": "/outdoor-community-engagement.jpg",
+      "alt": "Outdoor community engagement",
+      "caption": "Field Engagement",
+      "subcaption": "Reaching families where they are",
+      "category": "field-work",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_015",
+      "src": "/outdoor-community-engagement2.jpg",
+      "alt": "Community outreach activities",
+      "caption": "Community Outreach",
+      "subcaption": "Bringing hope to every doorstep",
+      "category": "field-work",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_016",
+      "src": "/outside-school.jpg",
+      "alt": "Children outside school",
+      "caption": "Outdoor Learning",
+      "subcaption": "Education beyond the classroom",
+      "category": "education",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_017",
+      "src": "/plant.jpg",
+      "alt": "Environmental activities",
+      "caption": "Environmental Stewardship",
+      "subcaption": "Teaching sustainability",
+      "category": "community",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_018",
+      "src": "/schooldevotion.jpg",
+      "alt": "School devotion ceremony",
+      "caption": "School Devotion",
+      "subcaption": "Values at the heart of education",
+      "category": "education",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_019",
+      "src": "/schooldevotion2.jpg",
+      "alt": "School assembly and devotion",
+      "caption": "Morning Assembly",
+      "subcaption": "Building character alongside academics",
+      "category": "education",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_020",
+      "src": "/IMG-20260106-WA0019.jpg",
+      "alt": "DBC field activities",
+      "caption": "Field Activities",
+      "subcaption": "Making a real difference daily",
+      "category": "field-work",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_021",
+      "src": "/IMG-20260106-WA0020.jpg",
+      "alt": "DBC community work",
+      "caption": "Community Work",
+      "subcaption": "Together we build stronger communities",
+      "category": "community",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_022",
+      "src": "/IMG-20260106-WA0021.jpg",
+      "alt": "Children in DBC programs",
+      "caption": "Children in Programs",
+      "subcaption": "Every child matters",
+      "category": "children",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_023",
+      "src": "/IMG-20260106-WA0022.jpg",
+      "alt": "Education program activities",
+      "caption": "Education in Action",
+      "subcaption": "Knowledge is power",
+      "category": "education",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_024",
+      "src": "/IMG-20260106-WA0023.jpg",
+      "alt": "DBC health activities",
+      "caption": "Health & Wellness",
+      "subcaption": "Healthy bodies, healthy minds",
+      "category": "health",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_025",
+      "src": "/IMG-20260106-WA0024.jpg",
+      "alt": "Community family engagement",
+      "caption": "Family First",
+      "subcaption": "Strengthening family bonds",
+      "category": "community",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_026",
+      "src": "/IMG-20260106-WA0025.jpg",
+      "alt": "Children learning and growing",
+      "caption": "Growing Together",
+      "subcaption": "Nurturing potential in every child",
+      "category": "children",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_027",
+      "src": "/IMG-20260106-WA0026.jpg",
+      "alt": "DBC field work in community",
+      "caption": "On the Ground",
+      "subcaption": "Real impact in real communities",
+      "category": "field-work",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_028",
+      "src": "/IMG-20260106-WA0027.jpg",
+      "alt": "Education support program",
+      "caption": "School Support",
+      "subcaption": "School materials for every child",
+      "category": "education",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_029",
+      "src": "/IMG-20260106-WA0028.jpg",
+      "alt": "Children in community setting",
+      "caption": "Community Children",
+      "subcaption": "Safe, supported, loved",
+      "category": "children",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_030",
+      "src": "/IMG-20260106-WA0029.jpg",
+      "alt": "DBC community outreach",
+      "caption": "Outreach & Impact",
+      "subcaption": "Reaching the most vulnerable",
+      "category": "field-work",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_031",
+      "src": "/IMG-20260106-WA0030.jpg",
+      "alt": "Community health session",
+      "caption": "Health Education",
+      "subcaption": "Prevention through education",
+      "category": "health",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_032",
+      "src": "/IMG-20260106-WA0031.jpg",
+      "alt": "Community activities",
+      "caption": "Active Community",
+      "subcaption": "United for our children",
+      "category": "community",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_033",
+      "src": "/IMG-20260106-WA0032.jpg",
+      "alt": "Children playing and learning",
+      "caption": "Play & Learn",
+      "subcaption": "Development through play",
+      "category": "children",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_034",
+      "src": "/IMG-20260106-WA0033.jpg",
+      "alt": "Education program",
+      "caption": "Education First",
+      "subcaption": "Unlocking every child's potential",
+      "category": "education",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_035",
+      "src": "/IMG-20260106-WA0034.jpg",
+      "alt": "Field work in Sierra Leone",
+      "caption": "Sierra Leone Field Work",
+      "subcaption": "Transforming lives across Bo District",
+      "category": "field-work",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_036",
+      "src": "/IMG-20260106-WA0035.jpg",
+      "alt": "Community gathering",
+      "caption": "Community Solidarity",
+      "subcaption": "One community, one dream",
+      "category": "community",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_037",
+      "src": "/IMG-20260106-WA0036.jpg",
+      "alt": "Health activities for children",
+      "caption": "Child Health",
+      "subcaption": "Wellness programs for every child",
+      "category": "health",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_038",
+      "src": "/IMG-20260106-WA0037.jpg",
+      "alt": "Children at school",
+      "caption": "In the Classroom",
+      "subcaption": "Quality learning environments",
+      "category": "education",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_039",
+      "src": "/IMG-20260106-WA0038.jpg",
+      "alt": "Community children activities",
+      "caption": "Children First",
+      "subcaption": "Their smiles are our success",
+      "category": "children",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_040",
+      "src": "/IMG-20260106-WA0039.jpg",
+      "alt": "DBC field activities",
+      "caption": "DBC in the Field",
+      "subcaption": "Where the work truly happens",
+      "category": "field-work",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_041",
+      "src": "/IMG-20260106-WA0040.jpg",
+      "alt": "Community empowerment activities",
+      "caption": "Empowering Communities",
+      "subcaption": "Self-reliance through support",
+      "category": "community",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_042",
+      "src": "/IMG-20260106-WA0041.jpg",
+      "alt": "Children growing with DBC",
+      "caption": "Growing with DBC",
+      "subcaption": "Guided, supported, inspired",
+      "category": "children",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_043",
+      "src": "/IMG-20260106-WA0042.jpg",
+      "alt": "School activities and events",
+      "caption": "School Events",
+      "subcaption": "Celebrating academic achievements",
+      "category": "education",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_044",
+      "src": "/IMG-20260106-WA0043.jpg",
+      "alt": "Health and wellness activities",
+      "caption": "Wellness Programs",
+      "subcaption": "Total wellbeing for every child",
+      "category": "health",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_045",
+      "src": "/IMG-20260106-WA0044.jpg",
+      "alt": "Community meeting",
+      "caption": "Community Planning",
+      "subcaption": "Local solutions for local challenges",
+      "category": "community",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_046",
+      "src": "/IMG-20260106-WA0045.jpg",
+      "alt": "DBC outreach work",
+      "caption": "Reaching Every Child",
+      "subcaption": "No child left behind",
+      "category": "field-work",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "img_047",
+      "src": "/IMG-20260106-WA0046.jpg",
+      "alt": "Children and community together",
+      "caption": "Together We Rise",
+      "subcaption": "A village raises a child",
+      "category": "community",
+      "visible": true,
+      "uploadedAt": "2026-01-06T00:00:00.000Z"
+    }
+  ]
+}

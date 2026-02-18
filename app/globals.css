@@ -133,3 +133,50 @@
 html {
   scroll-behavior: smooth;
 }
+
+/* ── Blog Content Prose Styles ── */
+.prose h1 {
+  @apply text-3xl font-extrabold text-primary mt-12 mb-6 leading-tight;
+}
+.prose h2 {
+  @apply text-2xl font-extrabold text-primary mt-10 mb-4 leading-tight;
+}
+.prose h3 {
+  @apply text-xl font-bold text-primary mt-8 mb-3;
+}
+.prose p {
+  @apply text-slate-600 leading-relaxed mb-5;
+}
+.prose ul {
+  @apply list-disc ml-6 mb-5 space-y-2;
+}
+.prose ol {
+  @apply list-decimal ml-6 mb-5 space-y-2;
+}
+.prose li {
+  @apply text-slate-600 leading-relaxed;
+}
+.prose blockquote {
+  @apply border-l-4 border-secondary pl-6 italic text-slate-500 my-8 text-lg;
+}
+.prose strong {
+  @apply font-bold text-primary;
+}
+.prose em {
+  @apply italic;
+}
+.prose a {
+  @apply text-secondary hover:underline font-medium;
+}
+.prose code {
+  @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono text-primary;
+}
+
+/* Hide scrollbar for filter tabs */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

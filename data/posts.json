@@ -1,0 +1,32 @@
+{
+  "posts": [
+    {
+      "id": "post_001",
+      "slug": "dream-big-for-children-making-impact-in-bo-district",
+      "title": "Dream Big for Children: Making Real Impact in Bo District",
+      "excerpt": "Since our founding in 2022, Dream Big for Children has been transforming lives across 5 communities in Bo, Sierra Leone. Here's a look at the progress we've made and the journey ahead.",
+      "content": "## Our Journey Begins\n\nIn 2022, a dream was born — a dream that every child in Sierra Leone deserves a safe, loving, and nurturing environment to grow and flourish. Dream Big for Children (DBC) was established with this belief at its core.\n\nLocated in the heart of Bo District, Sierra Leone, our organization has grown from a small community initiative into a recognised non-profit that touches the lives of hundreds of children and families every year.\n\n## The Impact So Far\n\nOver the past years, we have worked tirelessly alongside families, community leaders, and international partners to bring meaningful change:\n\n- **Education Support**: We have distributed school materials to over 40 children annually, ensuring that no child is left out of education due to lack of resources.\n- **Child Protection**: Through our awareness programs and community networks, we have strengthened child protection systems in 5 communities.\n- **Health & Nutrition**: Our health programs reach vulnerable children with nutrition support and health education.\n- **Economic Empowerment**: We support families with skills training and small enterprise development to break the cycle of poverty.\n\n## Community at the Heart\n\nWhat sets DBC apart is our community-centred approach. We believe that lasting change comes from within — from families who are empowered, communities that are engaged, and leaders who are equipped to protect their children.\n\nEvery decision we make, every program we design, puts the child first. We are guided by our Constitution and aligned with internationally accepted best practices in child care and protection.\n\n## Looking Ahead\n\nAs we look to the future, our vision remains clear: **a Sierra Leone where every child has the opportunity to thrive, learn, and reach their full potential.**\n\nWe are expanding our reach, strengthening our partnerships, and deepening our impact. With the support of donors, volunteers, and the communities we serve, we are confident that the best is yet to come.\n\n> \"Children are not just the future — they are the present. Every investment in a child today is a gift to the world tomorrow.\"\n\nThank you for believing in our mission. Together, we can make every child's dream come true.",
+      "featuredImage": "/landing.jpg",
+      "author": "DBC Team",
+      "category": "Impact",
+      "tags": ["impact", "Sierra Leone", "community", "children"],
+      "published": true,
+      "createdAt": "2026-02-01T00:00:00.000Z",
+      "publishedAt": "2026-02-01T00:00:00.000Z"
+    },
+    {
+      "id": "post_002",
+      "slug": "school-materials-distribution-empowering-40-children",
+      "title": "School Materials Distribution: Empowering 40+ Children This Year",
+      "excerpt": "Our annual school materials distribution program reached over 40 children this year, providing notebooks, pens, uniforms, and essential learning tools to children who need them most.",
+      "content": "## A New School Year, A New Beginning\n\nEvery year, as a new school term approaches, many families in Bo District face a difficult reality: they want their children in school, but the cost of school materials is simply out of reach.\n\nAt Dream Big for Children, we refuse to let financial barriers stand between a child and their education. Our annual school materials distribution program exists to bridge that gap.\n\n## What We Distributed\n\nThis year, our team worked with community leaders to identify the children in greatest need. Here's what was distributed:\n\n- **Exercise books and pens** for every child\n- **School uniforms** to help children feel proud and ready to learn\n- **Backpacks** so children can carry their learning with dignity\n- **Geometry sets and rulers** for secondary school students\n- **Reading books** to support literacy at home\n\n## The Faces Behind the Numbers\n\nBehind every statistic is a real child with real dreams. This year, we met young Aminata, a 10-year-old girl from Simbaru community. Her mother, a single parent, was working hard but struggled to afford school supplies.\n\nWhen Aminata received her school bag and uniform, she smiled from ear to ear and said, *\"Now I can go to school every day.\"*\n\nThat moment — that single smile — is why we do what we do.\n\n## Thank You to Our Supporters\n\nThis program would not be possible without the generous support of our donors and partners who believe in the power of education. Every contribution, no matter how small, makes a direct difference in a child's life.\n\nIf you would like to support our next distribution, we encourage you to reach out and partner with us. Together, we can ensure that **every child has what they need to dream big.**",
+      "featuredImage": "/outside-school.jpg",
+      "author": "DBC Team",
+      "category": "Education",
+      "tags": ["education", "school", "children", "distribution"],
+      "published": true,
+      "createdAt": "2026-02-10T00:00:00.000Z",
+      "publishedAt": "2026-02-10T00:00:00.000Z"
+    }
+  ]
+}
