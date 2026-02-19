@@ -1,10 +1,10 @@
 "use client"
 
-import { useState, FormEvent } from "react"
+import { useState, FormEvent, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Lock, Eye, EyeOff, AlertCircle } from "lucide-react"
 
-export default function AdminLoginPage() {
+function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const from = searchParams.get("from") || "/admin"
@@ -130,5 +130,13 @@ export default function AdminLoginPage() {
         </p>
       </div>
     </div>
+  )
+}
+
+export default function AdminLoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-primary" />}>
+      <LoginForm />
+    </Suspense>
   )
 }
