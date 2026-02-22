@@ -1,5 +1,14 @@
 import type { Metadata } from "next"
 import { GalleryPageClient } from "@/components/gallery-page"
+import fs from "node:fs"
+import path from "node:path"
+
+type GalleryImage = {
+  src: string
+  alt: string
+  caption?: string
+  location?: string
+}
 
 export const metadata: Metadata = {
   title: "Gallery | Dream Big for Children (DBC)",
@@ -41,5 +50,19 @@ export const metadata: Metadata = {
 }
 
 export default function GalleryPage() {
-  return <GalleryPageClient />
+  const galleryDir = path.join(process.cwd(), "public", "DBC")
+  const allowedExtensions = new Set([".jpg", ".jpeg", ".png", ".webp"])
+  const fileNames = fs.existsSync(galleryDir)
+    ? fs
+        .readdirSync(galleryDir)
+        .filter((file) => allowedExtensions.has(path.extname(file).toLowerCase()))
+        .sort((a, b) => a.localeCompare(b))
+    : []
+
+  const images: GalleryImage[] = fileNames.map((fileName, index) => ({
+    src: `/DBC/${encodeURIComponent(fileName)}`,
+    alt: `Dream Big for Children activity photo ${index + 1}`,
+  }))
+
+  return <GalleryPageClient images={images} />
 }

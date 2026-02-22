@@ -11,58 +11,19 @@ type GalleryImage = {
   location?: string
 }
 
-const galleryImages: GalleryImage[] = [
-  {
-    src: "/team.jpg",
-    alt: "School materials distribution",
-    caption: "School Materials Distribution",
-    location: "Bo District",
-  },
-  {
-    src: "/img2.jpg",
-    alt: "Child protection session",
-    caption: "Child Protection and Care",
-  },
-  {
-    src: "/img3.jpg",
-    alt: "Empowering children through education",
-    caption: "Empowering Children Through Education",
-  },
-  {
-    src: "/community.jpg",
-    alt: "Community development meeting",
-    caption: "Community Development Meetings",
-    location: "Bo District",
-  },
-  {
-    src: "/kids.jpg",
-    alt: "Students in class",
-    caption: "Quality Education",
-  },
-  {
-    src: "/img1.jpg",
-    alt: "Children playing",
-    caption: "Health and Recreation",
-  },
-  {
-    src: "/outside-school.jpg",
-    alt: "Outdoor learning session",
-    caption: "Outdoor Learning Session",
-  },
-  {
-    src: "/communityhappyhandsup.jpg",
-    alt: "Community celebration",
-    caption: "Community Celebration",
-  },
-]
-
 const PAGE_SIZE = 16
 
-export function GalleryPageClient() {
+type GalleryPageClientProps = {
+  images: GalleryImage[]
+}
+
+export function GalleryPageClient({ images }: GalleryPageClientProps) {
   const [activeImage, setActiveImage] = useState<GalleryImage | null>(null)
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
+  const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({})
 
-  const visibleImages = useMemo(() => galleryImages.slice(0, visibleCount), [visibleCount])
+  const visibleImages = useMemo(() => images.slice(0, visibleCount), [images, visibleCount])
+  const priorityImageCount = Math.min(12, images.length)
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -70,15 +31,18 @@ export function GalleryPageClient() {
         setActiveImage(null)
       }
 
-      if (activeImage) {
-        const currentIndex = galleryImages.findIndex((image) => image.src === activeImage.src)
+      if (activeImage && images.length > 0) {
+        const currentIndex = images.findIndex((image) => image.src === activeImage.src)
+        if (currentIndex === -1) {
+          return
+        }
         if (event.key === "ArrowRight") {
-          const nextIndex = (currentIndex + 1) % galleryImages.length
-          setActiveImage(galleryImages[nextIndex])
+          const nextIndex = (currentIndex + 1) % images.length
+          setActiveImage(images[nextIndex])
         }
         if (event.key === "ArrowLeft") {
-          const prevIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length
-          setActiveImage(galleryImages[prevIndex])
+          const prevIndex = (currentIndex - 1 + images.length) % images.length
+          setActiveImage(images[prevIndex])
         }
       }
     }
@@ -92,9 +56,9 @@ export function GalleryPageClient() {
       document.body.style.overflow = ""
       window.removeEventListener("keydown", onKeyDown)
     }
-  }, [activeImage])
+  }, [activeImage, images])
 
-  const totalImages = galleryImages.length
+  const totalImages = images.length
   const canLoadMore = visibleCount < totalImages
 
   return (
@@ -107,8 +71,7 @@ export function GalleryPageClient() {
             <p className="text-xs font-bold uppercase tracking-[0.35em] text-secondary">Our Gallery</p>
             <h1 className="mt-4 text-4xl md:text-5xl font-extrabold text-primary">Stories in Pictures</h1>
             <p className="mt-4 text-slate-600">
-              Add new images by updating the <span className="font-semibold text-primary">galleryImages</span> array in
-              this page and dropping files into the <span className="font-semibold text-primary">public/</span> folder.
+              A glimpse into our programs, partners, and the communities we serve.
             </p>
             <p className="mt-3 text-sm font-semibold text-slate-500">
               Showing {Math.min(visibleCount, totalImages)} of {totalImages} images
@@ -123,11 +86,19 @@ export function GalleryPageClient() {
                 onClick={() => setActiveImage(image)}
                 className="group relative overflow-hidden rounded-3xl shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
               >
+                {!loadedImages[image.src] && (
+                  <div className="absolute inset-0 animate-pulse bg-slate-200" />
+                )}
                 <img
                   src={image.src}
                   alt={image.alt}
-                  loading="lazy"
-                  className="h-44 w-full object-cover transition duration-300 group-hover:scale-105 sm:h-52 lg:h-56"
+                  loading={index < priorityImageCount ? "eager" : "lazy"}
+                  decoding="async"
+                  fetchPriority={index < priorityImageCount ? "high" : "auto"}
+                  className={`h-44 w-full object-cover transition duration-300 group-hover:scale-105 sm:h-52 lg:h-56 ${
+                    loadedImages[image.src] ? "opacity-100" : "opacity-0"
+                  }`}
+                  onLoad={() => setLoadedImages((prev) => ({ ...prev, [image.src]: true }))}
                 />
                 {(image.caption || image.location) && (
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-4 text-left opacity-0 transition group-hover:opacity-100">
@@ -150,11 +121,16 @@ export function GalleryPageClient() {
               </button>
             </div>
           )}
+          {totalImages === 0 && (
+            <div className="mt-10 rounded-3xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-600">
+              No images found in <span className="font-semibold text-primary">public/DBC/</span>.
+            </div>
+          )}
         </div>
       </section>
 
       {activeImage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 sm:p-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 sm:p-6 relative">
           <div
             className="absolute inset-0 z-0 cursor-zoom-out"
             aria-hidden="true"
@@ -171,9 +147,15 @@ export function GalleryPageClient() {
           <button
             type="button"
             onClick={() => {
-              const currentIndex = galleryImages.findIndex((image) => image.src === activeImage.src)
-              const prevIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length
-              setActiveImage(galleryImages[prevIndex])
+              if (images.length === 0) {
+                return
+              }
+              const currentIndex = images.findIndex((image) => image.src === activeImage.src)
+              if (currentIndex === -1) {
+                return
+              }
+              const prevIndex = (currentIndex - 1 + images.length) % images.length
+              setActiveImage(images[prevIndex])
             }}
             className="absolute left-4 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-white/90 px-3 py-2 text-sm font-semibold text-gray-900 shadow hover:bg-white sm:inline-flex"
           >
@@ -182,9 +164,15 @@ export function GalleryPageClient() {
           <button
             type="button"
             onClick={() => {
-              const currentIndex = galleryImages.findIndex((image) => image.src === activeImage.src)
-              const nextIndex = (currentIndex + 1) % galleryImages.length
-              setActiveImage(galleryImages[nextIndex])
+              if (images.length === 0) {
+                return
+              }
+              const currentIndex = images.findIndex((image) => image.src === activeImage.src)
+              if (currentIndex === -1) {
+                return
+              }
+              const nextIndex = (currentIndex + 1) % images.length
+              setActiveImage(images[nextIndex])
             }}
             className="absolute right-4 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-white/90 px-3 py-2 text-sm font-semibold text-gray-900 shadow hover:bg-white sm:inline-flex"
           >
@@ -195,9 +183,15 @@ export function GalleryPageClient() {
             <button
               type="button"
               onClick={() => {
-                const currentIndex = galleryImages.findIndex((image) => image.src === activeImage.src)
-                const prevIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length
-                setActiveImage(galleryImages[prevIndex])
+                if (images.length === 0) {
+                  return
+                }
+                const currentIndex = images.findIndex((image) => image.src === activeImage.src)
+                if (currentIndex === -1) {
+                  return
+                }
+                const prevIndex = (currentIndex - 1 + images.length) % images.length
+                setActiveImage(images[prevIndex])
               }}
               className="rounded-full bg-white/90 px-4 py-2 text-xs font-semibold text-gray-900 shadow hover:bg-white"
             >
@@ -206,9 +200,15 @@ export function GalleryPageClient() {
             <button
               type="button"
               onClick={() => {
-                const currentIndex = galleryImages.findIndex((image) => image.src === activeImage.src)
-                const nextIndex = (currentIndex + 1) % galleryImages.length
-                setActiveImage(galleryImages[nextIndex])
+                if (images.length === 0) {
+                  return
+                }
+                const currentIndex = images.findIndex((image) => image.src === activeImage.src)
+                if (currentIndex === -1) {
+                  return
+                }
+                const nextIndex = (currentIndex + 1) % images.length
+                setActiveImage(images[nextIndex])
               }}
               className="rounded-full bg-white/90 px-4 py-2 text-xs font-semibold text-gray-900 shadow hover:bg-white"
             >
@@ -219,7 +219,9 @@ export function GalleryPageClient() {
           <img
             src={activeImage.src}
             alt={activeImage.alt}
-            className="relative z-10 max-h-[80vh] max-w-full rounded-3xl object-contain shadow-2xl sm:max-h-full"
+            loading="eager"
+            decoding="async"
+            className="relative z-10 max-h-[70vh] max-w-full rounded-3xl object-contain shadow-2xl sm:max-h-[85vh]"
           />
         </div>
       )}
