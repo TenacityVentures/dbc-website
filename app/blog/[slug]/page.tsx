@@ -1,7 +1,6 @@
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
-import { getPublishedPosts, getPostBySlug } from "@/lib/data"
-import { parseMarkdown } from "@/lib/markdown"
+import { supabaseAdmin } from "@/lib/supabase"
 import { Calendar, User, Tag, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { format } from "date-fns"
@@ -9,29 +8,45 @@ import { notFound } from "next/navigation"
 
 export const dynamic = "force-dynamic"
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const post = getPostBySlug(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const { data: post } = await supabaseAdmin
+    .from("blog_posts")
+    .select("title, excerpt, featured_image")
+    .eq("slug", slug)
+    .eq("published", true)
+    .single()
+
   if (!post) return {}
   return {
     title: `${post.title} | DBC Blog`,
     description: post.excerpt,
-    openGraph: {
-      images: [post.featuredImage],
-    },
+    openGraph: { images: [post.featured_image] },
   }
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = getPostBySlug(params.slug)
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
 
-  if (!post || !post.published) notFound()
+  const { data: post } = await supabaseAdmin
+    .from("blog_posts")
+    .select("*")
+    .eq("slug", slug)
+    .eq("published", true)
+    .single()
 
-  const allPosts = getPublishedPosts()
-  const currentIdx = allPosts.findIndex((p) => p.slug === params.slug)
-  const prevPost = currentIdx < allPosts.length - 1 ? allPosts[currentIdx + 1] : null
-  const nextPost = currentIdx > 0 ? allPosts[currentIdx - 1] : null
+  if (!post) notFound()
 
-  const htmlContent = parseMarkdown(post.content)
+  // Fetch adjacent posts for navigation
+  const { data: allPosts = [] } = await supabaseAdmin
+    .from("blog_posts")
+    .select("id, slug, title")
+    .eq("published", true)
+    .order("published_at", { ascending: false })
+
+  const currentIdx = (allPosts ?? []).findIndex((p) => p.slug === slug)
+  const prevPost = currentIdx < (allPosts ?? []).length - 1 ? (allPosts ?? [])[currentIdx + 1] : null
+  const nextPost = currentIdx > 0 ? (allPosts ?? [])[currentIdx - 1] : null
 
   return (
     <main className="min-h-screen bg-background">
@@ -40,7 +55,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       {/* ── Featured Image Hero ── */}
       <div className="relative h-[55vh] min-h-[420px] overflow-hidden mt-20">
         <img
-          src={post.featuredImage}
+          src={post.featured_image}
           alt={post.title}
           className="w-full h-full object-cover"
         />
@@ -50,7 +65,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
             <span className="bg-secondary text-primary text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full">
               {post.category}
             </span>
-            {post.tags.slice(0, 2).map((tag) => (
+            {(post.tags ?? []).slice(0, 2).map((tag: string) => (
               <span key={tag} className="bg-white/20 text-white text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full">
                 #{tag}
               </span>
@@ -72,7 +87,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           </span>
           <span className="flex items-center gap-2">
             <Calendar className="w-4 h-4 text-secondary" />
-            {format(new Date(post.publishedAt || post.createdAt), "MMMM d, yyyy")}
+            {format(new Date(post.published_at || post.created_at), "MMMM d, yyyy")}
           </span>
         </div>
 
@@ -81,17 +96,17 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           {post.excerpt}
         </p>
 
-        {/* Content */}
+        {/* Content — stored as HTML from Tiptap */}
         <div
-          className="prose"
-          dangerouslySetInnerHTML={{ __html: htmlContent }}
+          className="blog-content"
+          dangerouslySetInnerHTML={{ __html: post.content }}
         />
 
         {/* Tags */}
-        {post.tags.length > 0 && (
+        {(post.tags ?? []).length > 0 && (
           <div className="flex flex-wrap gap-2 mt-16 pt-8 border-t border-slate-200">
             <Tag className="w-4 h-4 text-slate-400 mt-0.5" />
-            {post.tags.map((tag) => (
+            {(post.tags as string[]).map((tag) => (
               <span key={tag} className="bg-muted text-slate-500 text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full">
                 {tag}
               </span>

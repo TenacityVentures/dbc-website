@@ -124,9 +124,7 @@ function LoginForm() {
         </div>
 
         <p className="text-center text-slate-500 text-xs mt-6">
-          Default password: <span className="text-secondary font-bold">dbc@admin2026</span>
-          <br />
-          <span className="opacity-60">Change via ADMIN_SECRET env variable in production.</span>
+          Contact your administrator if you need access.
         </p>
       </div>
     </div>

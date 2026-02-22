@@ -1,7 +1,7 @@
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
-import { getPublishedPosts } from "@/lib/data"
-import { BookOpen, Calendar, User, ArrowRight, Tag } from "lucide-react"
+import { supabaseAdmin } from "@/lib/supabase"
+import { BookOpen, Calendar, User, ArrowRight } from "lucide-react"
 import Link from "next/link"
 import { format } from "date-fns"
 
@@ -12,9 +12,14 @@ export const metadata = {
   description: "Latest news, stories and updates from Dream Big for Children organization in Sierra Leone.",
 }
 
-export default function BlogPage() {
-  const posts = getPublishedPosts()
-  const [featured, ...rest] = posts
+export default async function BlogPage() {
+  const { data: posts = [] } = await supabaseAdmin
+    .from("blog_posts")
+    .select("*")
+    .eq("published", true)
+    .order("published_at", { ascending: false })
+
+  const [featured, ...rest] = posts ?? []
 
   return (
     <main className="min-h-screen bg-background">
@@ -44,11 +49,11 @@ export default function BlogPage() {
           </div>
           <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
             Stories of Impact,<br />
-            <span className="text-secondary">Hope & Change</span>
+            <span className="text-secondary">Hope &amp; Change</span>
           </h1>
           <p className="text-slate-300 text-lg max-w-2xl leading-relaxed">
             Read the latest updates, field stories, and news from Dream Big for Children — where every word carries
-            the weight of a child's dream.
+            the weight of a child&apos;s dream.
           </p>
         </div>
       </section>
@@ -75,7 +80,7 @@ export default function BlogPage() {
                     <div className="grid lg:grid-cols-2 gap-10 items-center bg-white rounded-[2rem] overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-500 border border-slate-100">
                       <div className="relative h-72 lg:h-full min-h-[360px] overflow-hidden">
                         <img
-                          src={featured.featuredImage}
+                          src={featured.featured_image}
                           alt={featured.title}
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                         />
@@ -89,7 +94,7 @@ export default function BlogPage() {
                         <div className="flex items-center gap-4 text-xs text-slate-400 font-bold uppercase tracking-widest mb-5">
                           <span className="flex items-center gap-1.5">
                             <Calendar className="w-3.5 h-3.5" />
-                            {format(new Date(featured.publishedAt || featured.createdAt), "MMMM d, yyyy")}
+                            {format(new Date(featured.published_at || featured.created_at), "MMMM d, yyyy")}
                           </span>
                           <span className="flex items-center gap-1.5">
                             <User className="w-3.5 h-3.5" />
@@ -123,7 +128,7 @@ export default function BlogPage() {
                         <div className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-400 border border-slate-100 h-full flex flex-col">
                           <div className="relative h-52 overflow-hidden">
                             <img
-                              src={post.featuredImage}
+                              src={post.featured_image}
                               alt={post.title}
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                             />
@@ -137,7 +142,7 @@ export default function BlogPage() {
                             <div className="flex items-center gap-3 text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-3">
                               <span className="flex items-center gap-1">
                                 <Calendar className="w-3 h-3" />
-                                {format(new Date(post.publishedAt || post.createdAt), "MMM d, yyyy")}
+                                {format(new Date(post.published_at || post.created_at), "MMM d, yyyy")}
                               </span>
                             </div>
                             <h3 className="text-lg font-extrabold text-primary mb-3 leading-snug group-hover:text-secondary transition-colors duration-300 flex-1">

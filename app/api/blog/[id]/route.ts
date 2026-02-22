@@ -1,42 +1,61 @@
 import { NextResponse } from "next/server"
-import { getPostsData, savePostsData } from "@/lib/data"
+import { supabaseAdmin } from "@/lib/supabase"
+import { requireAdmin } from "@/lib/auth"
 
 // GET /api/blog/[id]
-export async function GET(_request: Request, { params }: { params: { id: string } }) {
-  const data = getPostsData()
-  const post = data.posts.find((p) => p.id === params.id)
-  if (!post) return NextResponse.json({ error: "Not found" }, { status: 404 })
-  return NextResponse.json(post)
+export async function GET(_req: Request, { params }: { params: { id: string } }) {
+  const { data, error } = await supabaseAdmin
+    .from("blog_posts")
+    .select("*")
+    .eq("id", params.id)
+    .single()
+
+  if (error) return NextResponse.json({ error: "Not found" }, { status: 404 })
+  return NextResponse.json(data)
 }
 
 // PUT /api/blog/[id] — update post
 export async function PUT(request: Request, { params }: { params: { id: string } }) {
+  const deny = await requireAdmin()
+  if (deny) return deny
+
   const body = await request.json()
-  const data = getPostsData()
 
-  const idx = data.posts.findIndex((p) => p.id === params.id)
-  if (idx === -1) return NextResponse.json({ error: "Not found" }, { status: 404 })
+  // Fetch existing to preserve published_at
+  const { data: existing } = await supabaseAdmin
+    .from("blog_posts")
+    .select("published, published_at")
+    .eq("id", params.id)
+    .single()
 
-  const existing = data.posts[idx]
+  const published_at =
+    body.published && !existing?.published_at
+      ? new Date().toISOString()
+      : existing?.published_at ?? null
 
-  // Set publishedAt only when publishing for the first time
-  const publishedAt =
-    body.published && !existing.publishedAt ? new Date().toISOString() : existing.publishedAt
+  const allowed = ["title", "excerpt", "content", "featured_image", "author", "category", "tags", "published"]
+  const updates: Record<string, unknown> = { published_at }
+  for (const key of allowed) {
+    if (key in body) updates[key] = body[key]
+  }
 
-  data.posts[idx] = { ...existing, ...body, publishedAt }
-  savePostsData(data)
+  const { data, error } = await supabaseAdmin
+    .from("blog_posts")
+    .update(updates)
+    .eq("id", params.id)
+    .select()
+    .single()
 
-  return NextResponse.json(data.posts[idx])
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  return NextResponse.json(data)
 }
 
 // DELETE /api/blog/[id]
-export async function DELETE(_request: Request, { params }: { params: { id: string } }) {
-  const data = getPostsData()
-  const idx = data.posts.findIndex((p) => p.id === params.id)
-  if (idx === -1) return NextResponse.json({ error: "Not found" }, { status: 404 })
+export async function DELETE(_req: Request, { params }: { params: { id: string } }) {
+  const deny = await requireAdmin()
+  if (deny) return deny
 
-  data.posts.splice(idx, 1)
-  savePostsData(data)
-
+  const { error } = await supabaseAdmin.from("blog_posts").delete().eq("id", params.id)
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json({ success: true })
 }

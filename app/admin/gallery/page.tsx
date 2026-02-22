@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { Eye, EyeOff, Trash2, Upload, Plus, X, Check, ImagePlus, AlertCircle, Loader2 } from "lucide-react"
-import type { GalleryImage } from "@/lib/data"
+import type { GalleryImage } from "@/lib/supabase"
 
 const CATEGORIES = ["community", "education", "children", "health", "field-work"]
 
@@ -134,9 +134,9 @@ export default function AdminGalleryPage() {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
-    fetch("/api/gallery")
+    fetch("/api/gallery?all=true")
       .then((r) => r.json())
-      .then((data) => { setImages(data); setLoading(false) })
+      .then((data) => { setImages(Array.isArray(data) ? data : []); setLoading(false) })
   }, [])
 
   const filtered = filterCategory === "all" ? images : images.filter((i) => i.category === filterCategory)

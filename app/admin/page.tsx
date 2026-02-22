@@ -1,22 +1,30 @@
-import { getAllImages, getAllPosts } from "@/lib/data"
+import { supabaseAdmin } from "@/lib/supabase"
 import { Images, BookOpen, Eye, EyeOff, BarChart3, ArrowRight } from "lucide-react"
 import Link from "next/link"
 
 export const dynamic = "force-dynamic"
 
-export default function AdminDashboard() {
-  const images = getAllImages()
-  const posts = getAllPosts()
+export default async function AdminDashboard() {
+  const [{ data: images }, { data: posts }] = await Promise.all([
+    supabaseAdmin.from("gallery_images").select("id, visible"),
+    supabaseAdmin
+      .from("blog_posts")
+      .select("id, title, category, author, published, created_at")
+      .order("created_at", { ascending: false }),
+  ])
 
-  const visibleImages = images.filter((i) => i.visible).length
-  const hiddenImages = images.length - visibleImages
-  const publishedPosts = posts.filter((p) => p.published).length
-  const draftPosts = posts.length - publishedPosts
+  const imageList = images ?? []
+  const postList = posts ?? []
+
+  const visibleImages = imageList.filter((i) => i.visible).length
+  const hiddenImages = imageList.length - visibleImages
+  const publishedPosts = postList.filter((p) => p.published).length
+  const draftPosts = postList.length - publishedPosts
 
   const stats = [
     {
       label: "Total Images",
-      value: images.length,
+      value: imageList.length,
       sub: `${visibleImages} visible · ${hiddenImages} hidden`,
       icon: Images,
       color: "text-secondary",
@@ -25,7 +33,7 @@ export default function AdminDashboard() {
     },
     {
       label: "Blog Posts",
-      value: posts.length,
+      value: postList.length,
       sub: `${publishedPosts} published · ${draftPosts} drafts`,
       icon: BookOpen,
       color: "text-coral",
@@ -89,7 +97,7 @@ export default function AdminDashboard() {
             </Link>
           </div>
           <p className="text-sm text-slate-500 mb-5">
-            You have <strong className="text-primary">{images.length}</strong> images in total.{" "}
+            You have <strong className="text-primary">{imageList.length}</strong> images in total.{" "}
             <strong className="text-secondary">{visibleImages}</strong> are visible to visitors.
           </p>
           <Link
@@ -124,7 +132,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Recent posts */}
-      {posts.length > 0 && (
+      {postList.length > 0 && (
         <div className="mt-6 bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
           <div className="flex items-center justify-between mb-5">
             <h2 className="font-extrabold text-primary">Recent Posts</h2>
@@ -133,7 +141,7 @@ export default function AdminDashboard() {
             </Link>
           </div>
           <div className="space-y-3">
-            {posts.slice(0, 4).map((post) => (
+            {postList.slice(0, 4).map((post) => (
               <div key={post.id} className="flex items-center gap-4 py-3 border-b border-slate-50 last:border-0">
                 <div className="flex-1 min-w-0">
                   <p className="font-bold text-primary text-sm truncate">{post.title}</p>

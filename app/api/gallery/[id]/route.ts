@@ -1,33 +1,49 @@
 import { NextResponse } from "next/server"
-import { getGalleryData, saveGalleryData } from "@/lib/data"
+import { supabaseAdmin } from "@/lib/supabase"
+import { requireAdmin } from "@/lib/auth"
 
-// PUT /api/gallery/[id] — update image (toggle visibility, edit caption, etc.)
+// PUT /api/gallery/[id] — update image (visibility, caption, category)
 export async function PUT(request: Request, { params }: { params: { id: string } }) {
-  const body = await request.json()
-  const data = getGalleryData()
+  const deny = await requireAdmin()
+  if (deny) return deny
 
-  const idx = data.images.findIndex((img) => img.id === params.id)
-  if (idx === -1) {
-    return NextResponse.json({ error: "Image not found" }, { status: 404 })
+  const body = await request.json()
+  const allowed = ["visible", "caption", "subcaption", "category", "alt"]
+  const updates: Record<string, unknown> = {}
+  for (const key of allowed) {
+    if (key in body) updates[key] = body[key]
   }
 
-  data.images[idx] = { ...data.images[idx], ...body }
-  saveGalleryData(data)
+  const { data, error } = await supabaseAdmin
+    .from("gallery_images")
+    .update(updates)
+    .eq("id", params.id)
+    .select()
+    .single()
 
-  return NextResponse.json(data.images[idx])
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  return NextResponse.json(data)
 }
 
-// DELETE /api/gallery/[id] — remove image entry
-export async function DELETE(_request: Request, { params }: { params: { id: string } }) {
-  const data = getGalleryData()
+// DELETE /api/gallery/[id] — remove image (and from Supabase Storage if applicable)
+export async function DELETE(_req: Request, { params }: { params: { id: string } }) {
+  const deny = await requireAdmin()
+  if (deny) return deny
 
-  const idx = data.images.findIndex((img) => img.id === params.id)
-  if (idx === -1) {
-    return NextResponse.json({ error: "Image not found" }, { status: 404 })
+  // Fetch image first to get storage path
+  const { data: img } = await supabaseAdmin
+    .from("gallery_images")
+    .select("src")
+    .eq("id", params.id)
+    .single()
+
+  // If the src is a Supabase Storage path, delete the file too
+  if (img?.src && img.src.includes("gallery-images")) {
+    const path = img.src.split("/gallery-images/")[1]
+    if (path) await supabaseAdmin.storage.from("gallery-images").remove([path])
   }
 
-  data.images.splice(idx, 1)
-  saveGalleryData(data)
-
+  const { error } = await supabaseAdmin.from("gallery_images").delete().eq("id", params.id)
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json({ success: true })
 }

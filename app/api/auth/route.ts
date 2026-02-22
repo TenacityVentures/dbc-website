@@ -1,34 +1,30 @@
 import { NextResponse } from "next/server"
-import { cookies } from "next/headers"
+import { getAdminSecret } from "@/lib/auth"
 
-const ADMIN_SECRET = process.env.ADMIN_SECRET || "dbc@admin2026"
-
-// POST /api/auth — Login
 export async function POST(request: Request) {
   const { password } = await request.json()
+  const secret = getAdminSecret()
 
-  if (password !== ADMIN_SECRET) {
+  if (!secret) {
+    return NextResponse.json({ error: "ADMIN_SECRET env variable is not set on this server." }, { status: 500 })
+  }
+  if (password !== secret) {
     return NextResponse.json({ error: "Invalid password" }, { status: 401 })
   }
 
   const response = NextResponse.json({ success: true })
-  response.cookies.set("dbc_admin", ADMIN_SECRET, {
+  response.cookies.set("dbc_admin", secret, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax",
-    maxAge: 60 * 60 * 24 * 7, // 7 days
+    maxAge: 60 * 60 * 24 * 7,
     path: "/",
   })
-
   return response
 }
 
-// DELETE /api/auth — Logout
 export async function DELETE() {
   const response = NextResponse.json({ success: true })
-  response.cookies.set("dbc_admin", "", {
-    maxAge: 0,
-    path: "/",
-  })
+  response.cookies.set("dbc_admin", "", { maxAge: 0, path: "/" })
   return response
 }

@@ -1,30 +1,39 @@
 import { NextResponse } from "next/server"
-import { getAllImages, getGalleryData, saveGalleryData, type GalleryImage } from "@/lib/data"
+import { supabaseAdmin } from "@/lib/supabase"
+import { requireAdmin } from "@/lib/auth"
 
-// GET /api/gallery — all images (admin uses this)
-export async function GET() {
-  const images = getAllImages()
-  return NextResponse.json(images)
+// GET /api/gallery — fetch all images (public uses visible=true, admin fetches all)
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url)
+  const adminOnly = searchParams.get("all") === "true"
+
+  let query = supabaseAdmin.from("gallery_images").select("*").order("uploaded_at", { ascending: false })
+  if (!adminOnly) query = query.eq("visible", true)
+
+  const { data, error } = await query
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  return NextResponse.json(data)
 }
 
-// POST /api/gallery — add image entry (used after upload)
+// POST /api/gallery — add image entry (admin)
 export async function POST(request: Request) {
+  const deny = await requireAdmin()
+  if (deny) return deny
+
   const body = await request.json()
+  const { data, error } = await supabaseAdmin
+    .from("gallery_images")
+    .insert({
+      src: body.src,
+      alt: body.alt || body.caption || "Gallery image",
+      caption: body.caption || "",
+      subcaption: body.subcaption || null,
+      category: body.category || "community",
+      visible: true,
+    })
+    .select()
+    .single()
 
-  const newImage: GalleryImage = {
-    id: `img_${Date.now()}`,
-    src: body.src,
-    alt: body.alt || body.caption || "Gallery image",
-    caption: body.caption || "",
-    subcaption: body.subcaption || "",
-    category: body.category || "community",
-    visible: true,
-    uploadedAt: new Date().toISOString(),
-  }
-
-  const data = getGalleryData()
-  data.images.push(newImage)
-  saveGalleryData(data)
-
-  return NextResponse.json(newImage, { status: 201 })
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
+  return NextResponse.json(data, { status: 201 })
 }
