@@ -56,7 +56,6 @@ export default function NewBlogPostPage() {
 
     if (res.ok) {
       router.push("/admin/blog")
-      router.refresh()
     } else {
       const err = await res.json()
       setError(err.error || "Failed to save post.")

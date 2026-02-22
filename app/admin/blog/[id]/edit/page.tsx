@@ -1,7 +1,7 @@
 "use client"
 
 import dynamic from "next/dynamic"
-import { useState, useEffect, useRef } from "react"
+import { use, useState, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
 import { ArrowLeft, Save, Loader2, Info, Upload, Eye, EyeOff } from "lucide-react"
 import Link from "next/link"
@@ -11,9 +11,9 @@ const RichTextEditor = dynamic(() => import("@/components/editor/RichTextEditor"
 
 const CATEGORIES = ["News", "Impact", "Education", "Health", "Community", "Events", "Stories"]
 
-export default function EditBlogPostPage({ params }: { params: { id: string } }) {
+export default function EditBlogPostPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter()
-  const { id } = params
+  const { id } = use(params)
 
   const [post, setPost] = useState<BlogPost | null>(null)
   const [title, setTitle] = useState("")
@@ -76,7 +76,6 @@ export default function EditBlogPostPage({ params }: { params: { id: string } })
 
     if (res.ok) {
       router.push("/admin/blog")
-      router.refresh()
     } else {
       const err = await res.json()
       setError(err.error || "Failed to save changes.")

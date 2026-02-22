@@ -1,11 +1,10 @@
 "use client"
 
 import { useState, FormEvent, Suspense } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import { Lock, Eye, EyeOff, AlertCircle } from "lucide-react"
 
 function LoginForm() {
-  const router = useRouter()
   const searchParams = useSearchParams()
   const from = searchParams.get("from") || "/admin"
 
@@ -26,8 +25,7 @@ function LoginForm() {
     })
 
     if (res.ok) {
-      router.push(from)
-      router.refresh()
+      window.location.href = from
     } else {
       setError("Incorrect password. Please try again.")
       setLoading(false)

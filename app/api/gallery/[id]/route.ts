@@ -3,10 +3,11 @@ import { supabaseAdmin } from "@/lib/supabase"
 import { requireAdmin } from "@/lib/auth"
 
 // PUT /api/gallery/[id] — update image (visibility, caption, category)
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   const deny = await requireAdmin()
   if (deny) return deny
 
+  const { id } = await params
   const body = await request.json()
   const allowed = ["visible", "caption", "subcaption", "category", "alt"]
   const updates: Record<string, unknown> = {}
@@ -17,7 +18,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   const { data, error } = await supabaseAdmin
     .from("gallery_images")
     .update(updates)
-    .eq("id", params.id)
+    .eq("id", id)
     .select()
     .single()
 
@@ -26,15 +27,17 @@ export async function PUT(request: Request, { params }: { params: { id: string }
 }
 
 // DELETE /api/gallery/[id] — remove image (and from Supabase Storage if applicable)
-export async function DELETE(_req: Request, { params }: { params: { id: string } }) {
+export async function DELETE(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   const deny = await requireAdmin()
   if (deny) return deny
+
+  const { id } = await params
 
   // Fetch image first to get storage path
   const { data: img } = await supabaseAdmin
     .from("gallery_images")
     .select("src")
-    .eq("id", params.id)
+    .eq("id", id)
     .single()
 
   // If the src is a Supabase Storage path, delete the file too
@@ -43,7 +46,7 @@ export async function DELETE(_req: Request, { params }: { params: { id: string }
     if (path) await supabaseAdmin.storage.from("gallery-images").remove([path])
   }
 
-  const { error } = await supabaseAdmin.from("gallery_images").delete().eq("id", params.id)
+  const { error } = await supabaseAdmin.from("gallery_images").delete().eq("id", id)
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
   return NextResponse.json({ success: true })
 }
