@@ -16,6 +16,7 @@ export function Navigation() {
     { href: isHomePage ? "#about" : "/#about", label: "Who We Are" },
     { href: isHomePage ? "#focus" : "/#focus", label: "Focus Areas" },
     { href: isHomePage ? "#gallery" : "/#gallery", label: "Our Work" },
+    { href: "/gallery", label: "Gallery" },
     { href: isHomePage ? "#contact" : "/#contact", label: "Contact" },
   ]
 
