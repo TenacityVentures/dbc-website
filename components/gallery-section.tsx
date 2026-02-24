@@ -94,6 +94,9 @@ export function GallerySection() {
                   src={image.src || "/placeholder.svg"}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   alt={image.alt}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  fetchPriority={index === 0 ? "high" : "auto"}
                 />
                 {image.caption && (
                   <div className="absolute bottom-0 p-4 md:p-8 text-white bg-gradient-to-t from-black/80 via-black/50 to-transparent w-full opacity-0 group-hover:opacity-100 transition-opacity duration-500">

@@ -11,19 +11,39 @@ type GalleryImage = {
   location?: string
 }
 
-const PAGE_SIZE = 16
-
-type GalleryPageClientProps = {
+type GallerySection = {
+  id: string
+  title: string
+  footnote: string
   images: GalleryImage[]
 }
 
-export function GalleryPageClient({ images }: GalleryPageClientProps) {
+const PAGE_SIZE = 8
+
+type GalleryPageClientProps = {
+  sections: GallerySection[]
+}
+
+export function GalleryPageClient({ sections }: GalleryPageClientProps) {
   const [activeImage, setActiveImage] = useState<GalleryImage | null>(null)
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
+  const [visibleBySection, setVisibleBySection] = useState<Record<string, number>>({})
   const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({})
 
-  const visibleImages = useMemo(() => images.slice(0, visibleCount), [images, visibleCount])
-  const priorityImageCount = Math.min(12, images.length)
+  const allImages = useMemo(() => sections.flatMap((section) => section.images), [sections])
+  const totalImages = allImages.length
+  const priorityImageCount = Math.min(2, totalImages)
+
+  useEffect(() => {
+    setVisibleBySection((current) => {
+      const next = { ...current }
+      for (const section of sections) {
+        if (!next[section.id]) {
+          next[section.id] = PAGE_SIZE
+        }
+      }
+      return next
+    })
+  }, [sections])
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -31,18 +51,18 @@ export function GalleryPageClient({ images }: GalleryPageClientProps) {
         setActiveImage(null)
       }
 
-      if (activeImage && images.length > 0) {
-        const currentIndex = images.findIndex((image) => image.src === activeImage.src)
+      if (activeImage && allImages.length > 0) {
+        const currentIndex = allImages.findIndex((image) => image.src === activeImage.src)
         if (currentIndex === -1) {
           return
         }
         if (event.key === "ArrowRight") {
-          const nextIndex = (currentIndex + 1) % images.length
-          setActiveImage(images[nextIndex])
+          const nextIndex = (currentIndex + 1) % allImages.length
+          setActiveImage(allImages[nextIndex])
         }
         if (event.key === "ArrowLeft") {
-          const prevIndex = (currentIndex - 1 + images.length) % images.length
-          setActiveImage(images[prevIndex])
+          const prevIndex = (currentIndex - 1 + allImages.length) % allImages.length
+          setActiveImage(allImages[prevIndex])
         }
       }
     }
@@ -56,10 +76,7 @@ export function GalleryPageClient({ images }: GalleryPageClientProps) {
       document.body.style.overflow = ""
       window.removeEventListener("keydown", onKeyDown)
     }
-  }, [activeImage, images])
-
-  const totalImages = images.length
-  const canLoadMore = visibleCount < totalImages
+  }, [activeImage, allImages])
 
   return (
     <main className="min-h-screen bg-slate-50">
@@ -74,53 +91,67 @@ export function GalleryPageClient({ images }: GalleryPageClientProps) {
               A glimpse into our programs, partners, and the communities we serve.
             </p>
             <p className="mt-3 text-sm font-semibold text-slate-500">
-              Showing {Math.min(visibleCount, totalImages)} of {totalImages} images
+              Showing {totalImages} images across {sections.length} program areas
             </p>
           </div>
 
-          <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-            {visibleImages.map((image, index) => (
-              <button
-                key={`${image.src}-${index}`}
-                type="button"
-                onClick={() => setActiveImage(image)}
-                className="group relative overflow-hidden rounded-3xl shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
-              >
-                {!loadedImages[image.src] && (
-                  <div className="absolute inset-0 animate-pulse bg-slate-200" />
-                )}
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  loading={index < priorityImageCount ? "eager" : "lazy"}
-                  decoding="async"
-                  fetchPriority={index < priorityImageCount ? "high" : "auto"}
-                  className={`h-44 w-full object-cover transition duration-300 group-hover:scale-105 sm:h-52 lg:h-56 ${
-                    loadedImages[image.src] ? "opacity-100" : "opacity-0"
-                  }`}
-                  onLoad={() => setLoadedImages((prev) => ({ ...prev, [image.src]: true }))}
-                />
-                {(image.caption || image.location) && (
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-4 text-left opacity-0 transition group-hover:opacity-100">
-                    {image.caption && <p className="text-sm font-semibold text-white">{image.caption}</p>}
-                    {image.location && <p className="text-xs text-white/80">{image.location}</p>}
+          {sections.map((section, sectionIndex) => {
+            const visibleCount = visibleBySection[section.id] ?? PAGE_SIZE
+            const visibleImages = section.images.slice(0, visibleCount)
+            const canLoadMore = visibleCount < section.images.length
+
+            return (
+              <section key={section.id} className={sectionIndex === 0 ? "mt-12" : "mt-16"}>
+                <h2 className="text-2xl md:text-3xl font-extrabold text-primary">{section.title}</h2>
+                <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+                  {visibleImages.map((image) => {
+                    const globalIndex = allImages.findIndex((item) => item.src === image.src)
+                    return (
+                      <button
+                        key={image.src}
+                        type="button"
+                        onClick={() => setActiveImage(image)}
+                        className="group relative overflow-hidden rounded-3xl shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
+                      >
+                        {!loadedImages[image.src] && (
+                          <div className="absolute inset-0 animate-pulse bg-slate-200" />
+                        )}
+                        <img
+                          src={image.src}
+                          alt={image.alt}
+                          loading={globalIndex < priorityImageCount ? "eager" : "lazy"}
+                          decoding="async"
+                          fetchPriority={globalIndex < priorityImageCount ? "high" : "auto"}
+                          className={`h-44 w-full object-cover transition duration-300 group-hover:scale-105 sm:h-52 lg:h-56 ${
+                            loadedImages[image.src] ? "opacity-100" : "opacity-0"
+                          }`}
+                          onLoad={() => setLoadedImages((prev) => ({ ...prev, [image.src]: true }))}
+                        />
+                      </button>
+                    )
+                  })}
+                </div>
+                <p className="mt-4 text-sm text-slate-600 italic">{section.footnote}</p>
+                {canLoadMore && (
+                  <div className="mt-6">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setVisibleBySection((current) => ({
+                          ...current,
+                          [section.id]: Math.min((current[section.id] ?? PAGE_SIZE) + PAGE_SIZE, section.images.length),
+                        }))
+                      }
+                      className="rounded-full bg-secondary px-5 py-2 text-xs font-bold uppercase tracking-wide text-primary shadow-md transition hover:bg-secondary/90"
+                    >
+                      Load More {section.title}
+                    </button>
                   </div>
                 )}
-              </button>
-            ))}
-          </div>
+              </section>
+            )
+          })}
 
-          {canLoadMore && (
-            <div className="mt-10 flex justify-center">
-              <button
-                type="button"
-                onClick={() => setVisibleCount((count) => Math.min(count + PAGE_SIZE, totalImages))}
-                className="rounded-full bg-secondary px-6 py-3 text-sm font-bold text-primary shadow-md transition hover:bg-secondary/90"
-              >
-                Load More
-              </button>
-            </div>
-          )}
           {totalImages === 0 && (
             <div className="mt-10 rounded-3xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-600">
               No images found in <span className="font-semibold text-primary">public/DBC/</span>.
@@ -147,15 +178,15 @@ export function GalleryPageClient({ images }: GalleryPageClientProps) {
           <button
             type="button"
             onClick={() => {
-              if (images.length === 0) {
+              if (allImages.length === 0) {
                 return
               }
-              const currentIndex = images.findIndex((image) => image.src === activeImage.src)
+              const currentIndex = allImages.findIndex((image) => image.src === activeImage.src)
               if (currentIndex === -1) {
                 return
               }
-              const prevIndex = (currentIndex - 1 + images.length) % images.length
-              setActiveImage(images[prevIndex])
+              const prevIndex = (currentIndex - 1 + allImages.length) % allImages.length
+              setActiveImage(allImages[prevIndex])
             }}
             className="absolute left-4 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-white/90 px-3 py-2 text-sm font-semibold text-gray-900 shadow hover:bg-white sm:inline-flex"
           >
@@ -164,15 +195,15 @@ export function GalleryPageClient({ images }: GalleryPageClientProps) {
           <button
             type="button"
             onClick={() => {
-              if (images.length === 0) {
+              if (allImages.length === 0) {
                 return
               }
-              const currentIndex = images.findIndex((image) => image.src === activeImage.src)
+              const currentIndex = allImages.findIndex((image) => image.src === activeImage.src)
               if (currentIndex === -1) {
                 return
               }
-              const nextIndex = (currentIndex + 1) % images.length
-              setActiveImage(images[nextIndex])
+              const nextIndex = (currentIndex + 1) % allImages.length
+              setActiveImage(allImages[nextIndex])
             }}
             className="absolute right-4 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-white/90 px-3 py-2 text-sm font-semibold text-gray-900 shadow hover:bg-white sm:inline-flex"
           >
@@ -183,15 +214,15 @@ export function GalleryPageClient({ images }: GalleryPageClientProps) {
             <button
               type="button"
               onClick={() => {
-                if (images.length === 0) {
+                if (allImages.length === 0) {
                   return
                 }
-                const currentIndex = images.findIndex((image) => image.src === activeImage.src)
+                const currentIndex = allImages.findIndex((image) => image.src === activeImage.src)
                 if (currentIndex === -1) {
                   return
                 }
-                const prevIndex = (currentIndex - 1 + images.length) % images.length
-                setActiveImage(images[prevIndex])
+                const prevIndex = (currentIndex - 1 + allImages.length) % allImages.length
+                setActiveImage(allImages[prevIndex])
               }}
               className="rounded-full bg-white/90 px-4 py-2 text-xs font-semibold text-gray-900 shadow hover:bg-white"
             >
@@ -200,15 +231,15 @@ export function GalleryPageClient({ images }: GalleryPageClientProps) {
             <button
               type="button"
               onClick={() => {
-                if (images.length === 0) {
+                if (allImages.length === 0) {
                   return
                 }
-                const currentIndex = images.findIndex((image) => image.src === activeImage.src)
+                const currentIndex = allImages.findIndex((image) => image.src === activeImage.src)
                 if (currentIndex === -1) {
                   return
                 }
-                const nextIndex = (currentIndex + 1) % images.length
-                setActiveImage(images[nextIndex])
+                const nextIndex = (currentIndex + 1) % allImages.length
+                setActiveImage(allImages[nextIndex])
               }}
               className="rounded-full bg-white/90 px-4 py-2 text-xs font-semibold text-gray-900 shadow hover:bg-white"
             >

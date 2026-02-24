@@ -43,6 +43,8 @@ export function HeroSection() {
             className="w-full h-full object-cover object-center opacity-60 md:opacity-80 absolute inset-0"
             alt="Children in Sierra Leone"
             loading="eager"
+            decoding="async"
+            fetchPriority={currentImageIndex === 0 ? "high" : "auto"}
           />
         </AnimatePresence>
         <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/50 to-transparent md:from-transparent md:via-primary/30 md:to-transparent" />
