@@ -25,13 +25,14 @@ type GalleryPageClientProps = {
 }
 
 export function GalleryPageClient({ sections }: GalleryPageClientProps) {
-  const [activeImage, setActiveImage] = useState<GalleryImage | null>(null)
+  const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null)
   const [visibleBySection, setVisibleBySection] = useState<Record<string, number>>({})
   const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({})
 
   const allImages = useMemo(() => sections.flatMap((section) => section.images), [sections])
   const totalImages = allImages.length
   const priorityImageCount = Math.min(2, totalImages)
+  const activeImage = activeImageIndex !== null ? allImages[activeImageIndex] ?? null : null
 
   useEffect(() => {
     setVisibleBySection((current) => {
@@ -48,26 +49,22 @@ export function GalleryPageClient({ sections }: GalleryPageClientProps) {
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setActiveImage(null)
+        setActiveImageIndex(null)
       }
 
-      if (activeImage && allImages.length > 0) {
-        const currentIndex = allImages.findIndex((image) => image.src === activeImage.src)
-        if (currentIndex === -1) {
-          return
-        }
+      if (activeImageIndex !== null && allImages.length > 0) {
         if (event.key === "ArrowRight") {
-          const nextIndex = (currentIndex + 1) % allImages.length
-          setActiveImage(allImages[nextIndex])
+          const nextIndex = (activeImageIndex + 1) % allImages.length
+          setActiveImageIndex(nextIndex)
         }
         if (event.key === "ArrowLeft") {
-          const prevIndex = (currentIndex - 1 + allImages.length) % allImages.length
-          setActiveImage(allImages[prevIndex])
+          const prevIndex = (activeImageIndex - 1 + allImages.length) % allImages.length
+          setActiveImageIndex(prevIndex)
         }
       }
     }
 
-    if (activeImage) {
+    if (activeImageIndex !== null) {
       document.body.style.overflow = "hidden"
       window.addEventListener("keydown", onKeyDown)
     }
@@ -76,7 +73,7 @@ export function GalleryPageClient({ sections }: GalleryPageClientProps) {
       document.body.style.overflow = ""
       window.removeEventListener("keydown", onKeyDown)
     }
-  }, [activeImage, allImages])
+  }, [activeImageIndex, allImages.length])
 
   return (
     <main className="min-h-screen bg-slate-50">
@@ -105,16 +102,17 @@ export function GalleryPageClient({ sections }: GalleryPageClientProps) {
                 <h2 className="text-2xl md:text-3xl font-extrabold text-primary">{section.title}</h2>
                 <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
                   {visibleImages.map((image) => {
-                    const globalIndex = allImages.findIndex((item) => item.src === image.src)
+                    const globalIndex = allImages.indexOf(image)
+                    const imageKey = `${image.src}-${globalIndex}`
                     return (
                       <button
-                        key={image.src}
+                        key={imageKey}
                         type="button"
-                        onClick={() => setActiveImage(image)}
+                        onClick={() => setActiveImageIndex(globalIndex)}
                         className="group relative overflow-hidden rounded-3xl shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
                       >
-                        {!loadedImages[image.src] && (
-                          <div className="absolute inset-0 animate-pulse bg-slate-200" />
+                        {!loadedImages[imageKey] && (
+                          <div className="pointer-events-none absolute inset-0 animate-pulse bg-slate-200" />
                         )}
                         <img
                           src={image.src}
@@ -123,9 +121,10 @@ export function GalleryPageClient({ sections }: GalleryPageClientProps) {
                           decoding="async"
                           fetchPriority={globalIndex < priorityImageCount ? "high" : "auto"}
                           className={`h-44 w-full object-cover transition duration-300 group-hover:scale-105 sm:h-52 lg:h-56 ${
-                            loadedImages[image.src] ? "opacity-100" : "opacity-0"
+                            loadedImages[imageKey] ? "opacity-100" : "opacity-0"
                           }`}
-                          onLoad={() => setLoadedImages((prev) => ({ ...prev, [image.src]: true }))}
+                          onLoad={() => setLoadedImages((prev) => ({ ...prev, [imageKey]: true }))}
+                          onError={() => setLoadedImages((prev) => ({ ...prev, [imageKey]: true }))}
                         />
                       </button>
                     )
@@ -160,100 +159,88 @@ export function GalleryPageClient({ sections }: GalleryPageClientProps) {
         </div>
       </section>
 
+
       {activeImage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 sm:p-6 relative">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-0 sm:p-0" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div
             className="absolute inset-0 z-0 cursor-zoom-out"
             aria-hidden="true"
-            onClick={() => setActiveImage(null)}
+            onClick={() => setActiveImageIndex(null)}
           />
-          <button
-            type="button"
-            onClick={() => setActiveImage(null)}
-            className="absolute right-4 top-4 z-20 rounded-full bg-white/90 px-3 py-2 text-xs font-semibold text-gray-900 shadow hover:bg-white sm:right-6 sm:top-6 sm:text-sm"
-          >
-            Close
-          </button>
+          <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
+            <button
+              type="button"
+              onClick={() => setActiveImageIndex(null)}
+              className="absolute right-4 top-4 z-20 rounded-full bg-white/90 px-3 py-2 text-xs font-semibold text-gray-900 shadow hover:bg-white sm:right-6 sm:top-6 sm:text-sm"
+            >
+              Close
+            </button>
 
-          <button
-            type="button"
-            onClick={() => {
-              if (allImages.length === 0) {
-                return
-              }
-              const currentIndex = allImages.findIndex((image) => image.src === activeImage.src)
-              if (currentIndex === -1) {
-                return
-              }
-              const prevIndex = (currentIndex - 1 + allImages.length) % allImages.length
-              setActiveImage(allImages[prevIndex])
-            }}
-            className="absolute left-4 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-white/90 px-3 py-2 text-sm font-semibold text-gray-900 shadow hover:bg-white sm:inline-flex"
-          >
-            Prev
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              if (allImages.length === 0) {
-                return
-              }
-              const currentIndex = allImages.findIndex((image) => image.src === activeImage.src)
-              if (currentIndex === -1) {
-                return
-              }
-              const nextIndex = (currentIndex + 1) % allImages.length
-              setActiveImage(allImages[nextIndex])
-            }}
-            className="absolute right-4 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-white/90 px-3 py-2 text-sm font-semibold text-gray-900 shadow hover:bg-white sm:inline-flex"
-          >
-            Next
-          </button>
-
-          <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-3 sm:hidden">
             <button
               type="button"
               onClick={() => {
-                if (allImages.length === 0) {
+                if (allImages.length === 0 || activeImageIndex === null) {
                   return
                 }
-                const currentIndex = allImages.findIndex((image) => image.src === activeImage.src)
-                if (currentIndex === -1) {
-                  return
-                }
-                const prevIndex = (currentIndex - 1 + allImages.length) % allImages.length
-                setActiveImage(allImages[prevIndex])
+                const prevIndex = (activeImageIndex - 1 + allImages.length) % allImages.length
+                setActiveImageIndex(prevIndex)
               }}
-              className="rounded-full bg-white/90 px-4 py-2 text-xs font-semibold text-gray-900 shadow hover:bg-white"
+              className="absolute left-4 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-white/90 px-3 py-2 text-sm font-semibold text-gray-900 shadow hover:bg-white sm:inline-flex"
             >
               Prev
             </button>
             <button
               type="button"
               onClick={() => {
-                if (allImages.length === 0) {
+                if (allImages.length === 0 || activeImageIndex === null) {
                   return
                 }
-                const currentIndex = allImages.findIndex((image) => image.src === activeImage.src)
-                if (currentIndex === -1) {
-                  return
-                }
-                const nextIndex = (currentIndex + 1) % allImages.length
-                setActiveImage(allImages[nextIndex])
+                const nextIndex = (activeImageIndex + 1) % allImages.length
+                setActiveImageIndex(nextIndex)
               }}
-              className="rounded-full bg-white/90 px-4 py-2 text-xs font-semibold text-gray-900 shadow hover:bg-white"
+              className="absolute right-4 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-white/90 px-3 py-2 text-sm font-semibold text-gray-900 shadow hover:bg-white sm:inline-flex"
             >
               Next
             </button>
-          </div>
 
-          <img
-            src={activeImage.src}
-            alt={activeImage.alt}
-            loading="eager"
-            decoding="async"
-            className="relative z-10 max-h-[70vh] max-w-full rounded-3xl object-contain shadow-2xl sm:max-h-[85vh]"
-          />
+            <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-3 sm:hidden">
+              <button
+                type="button"
+                onClick={() => {
+                  if (allImages.length === 0 || activeImageIndex === null) {
+                    return
+                  }
+                  const prevIndex = (activeImageIndex - 1 + allImages.length) % allImages.length
+                  setActiveImageIndex(prevIndex)
+                }}
+                className="rounded-full bg-white/90 px-4 py-2 text-xs font-semibold text-gray-900 shadow hover:bg-white"
+              >
+                Prev
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  if (allImages.length === 0 || activeImageIndex === null) {
+                    return
+                  }
+                  const nextIndex = (activeImageIndex + 1) % allImages.length
+                  setActiveImageIndex(nextIndex)
+                }}
+                className="rounded-full bg-white/90 px-4 py-2 text-xs font-semibold text-gray-900 shadow hover:bg-white"
+              >
+                Next
+              </button>
+            </div>
+
+            <img
+              src={activeImage.src}
+              alt={activeImage.alt}
+              loading="eager"
+              decoding="async"
+              className="max-h-[70vh] max-w-full rounded-3xl object-contain shadow-2xl sm:max-h-[85vh]"
+              style={{ margin: 'auto', display: 'block' }}
+            />
+          </div>
         </div>
       )}
 

@@ -91,9 +91,9 @@ export default function GalleryPage() {
     },
     {
       id: "empowerment",
-      title: "Women and Youth Empowerment",
+      title: "Collaboration and Child Safety Dialogues",
       footnote:
-        "Footnote: Practical livelihood support, mentoring, and small-scale enterprise initiatives that help women and youth build income opportunities.",
+        "Footnote: Community meetings and partnership sessions focused on child safety, collaboration, and local development planning.",
       images: [],
     },
   ]
