@@ -410,15 +410,15 @@
   }
 
   /*
-    Brand mark drawn from one traced SVG used as a mask, so it stays sharp at
-    any size and takes its colour from currentColor. Cheaper than inlining the
-    path everywhere it appears.
+    Brand mark used as a mask (only its alpha shape matters, not its colours),
+    so it takes its colour from currentColor. Cheaper than inlining the shape
+    everywhere it appears.
   */
   .brand-mark {
     display: block;
     background-color: currentColor;
-    -webkit-mask-image: url("/brand/mark.svg");
-    mask-image: url("/brand/mark.svg");
+    -webkit-mask-image: url("/brand/mark.png");
+    mask-image: url("/brand/mark.png");
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-position: center;

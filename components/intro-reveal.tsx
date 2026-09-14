@@ -20,8 +20,17 @@ const FADE_MS = 750
  * The overlay ships in the server-rendered markup so the page never flashes
  * before it appears; when the intro must be skipped, a layout effect removes
  * it before the first paint.
+ *
+ * Gated behind NEXT_PUBLIC_INTRO_ENABLED ("true" to enable) — defaults off.
+ * The check happens here, before any hooks run, so when disabled this never
+ * mounts the part of the tree that would otherwise ship the video markup.
  */
 export function IntroReveal() {
+  if (process.env.NEXT_PUBLIC_INTRO_ENABLED !== "true") return null
+  return <IntroRevealPlayer />
+}
+
+function IntroRevealPlayer() {
   const pathname = usePathname()
   const skipIntro = pathname?.startsWith("/admin") ?? false
   const [state, setState] = useState<"pending" | "playing" | "leaving" | "done">("pending")
