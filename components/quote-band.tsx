@@ -15,13 +15,13 @@ export function QuoteBand() {
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="w-full max-w-[500px]"
           >
-            <p className="eyebrow text-white/45">Hear from the families we walk with</p>
+            <p className="eyebrow text-white/45">A word from our founder</p>
             <blockquote className="mt-7 text-[clamp(1.6rem,1.15rem+1.8vw,2.4rem)] font-normal leading-[1.22] tracking-[-0.028em] text-white text-balance">
-              My daughter is back in school. For the first time, I can see her future.
+              No child in Bo District should have to choose between school and survival. That&apos;s why we exist.
             </blockquote>
             <footer className="mt-8 flex items-center gap-3">
               <span className="h-px w-8 bg-white/25" aria-hidden />
-              <span className="text-[14px] text-white/60">Aminata, parent — Simbaru, Bo District</span>
+              <span className="text-[14px] text-white/60">Mohamed Gbenga, Founder &amp; Executive Director</span>
             </footer>
           </motion.div>
         </div>

@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import { GalleryPageClient } from "@/components/gallery-page"
 import fs from "node:fs"
 import path from "node:path"
+import { GALLERY_BUCKET, GALLERY_SECTIONS } from "@/lib/gallery"
+import { createClient } from "@/lib/supabase/server"
 
 type GalleryImage = {
   src: string
@@ -56,47 +58,11 @@ export const metadata: Metadata = {
   },
 }
 
-export default function GalleryPage() {
+export default async function GalleryPage() {
   const galleryDir = path.join(process.cwd(), "public")
   const allowedExtensions = new Set([".jpg", ".jpeg", ".png", ".webp"])
 
-  const sections: GallerySection[] = [
-    {
-      id: "community",
-      title: "Community Engagement",
-      footnote:
-        "Community outreach sessions with families and local leaders in Bagbo and Tikonko chiefdoms to identify needs and coordinate support.",
-      images: [],
-    },
-    {
-      id: "education",
-      title: "Quality Education",
-      footnote:
-        "School support through learning materials, classroom engagement, and child-focused activities that improve attendance and confidence.",
-      images: [],
-    },
-    {
-      id: "agriculture",
-      title: "Agriculture and Food Security",
-      footnote:
-        "Seed distribution and farming guidance to improve household food production, strengthen nutrition, and increase self-reliance.",
-      images: [],
-    },
-    {
-      id: "health",
-      title: "Health and Wellbeing",
-      footnote:
-        "Health education, hygiene awareness, and wellbeing support for children, youth, and families.",
-      images: [],
-    },
-    {
-      id: "empowerment",
-      title: "Collaboration and Child Safety Dialogues",
-      footnote:
-        "Community meetings and partnership sessions focused on child safety, collaboration, and local development planning.",
-      images: [],
-    },
-  ]
+  const sections: GallerySection[] = GALLERY_SECTIONS.map((section) => ({ ...section, images: [] }))
 
   const explicitMap: Record<string, GallerySection["id"]> = {
     "IMG-20260202-WA0009.jpg": "education",
@@ -215,6 +181,24 @@ export default function GalleryPage() {
         src: `/DBC/${encodeURIComponent(fileName)}`,
         alt: `Dream Big for Children activity photo ${imageCounter}`,
       })
+    })
+  }
+
+  const supabase = await createClient()
+  const { data: uploadedImages } = await supabase
+    .from("gallery_images")
+    .select("section, storage_path, alt, caption, location")
+    .order("created_at", { ascending: false })
+
+  for (const row of uploadedImages ?? []) {
+    const section = sectionById.get(row.section)
+    if (!section) continue
+    const { data: publicUrl } = supabase.storage.from(GALLERY_BUCKET).getPublicUrl(row.storage_path)
+    section.images.unshift({
+      src: publicUrl.publicUrl,
+      alt: row.alt,
+      caption: row.caption ?? undefined,
+      location: row.location ?? undefined,
     })
   }
 
