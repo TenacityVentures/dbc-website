@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client"
 const LINKS = [
   { href: "/admin", label: "Dashboard" },
   { href: "/admin/gallery", label: "Gallery" },
+  { href: "/admin/stories", label: "Stories" },
 ]
 
 export function AdminNav({ email }: { email: string }) {
@@ -26,17 +27,20 @@ export function AdminNav({ email }: { email: string }) {
         <div className="flex items-center gap-8">
           <span className="eyebrow text-ink-faint">DBC Admin</span>
           <nav className="flex items-center gap-6">
-            {LINKS.map((link) => (
+            {LINKS.map((link) => {
+              const active = link.href === "/admin" ? pathname === link.href : pathname.startsWith(link.href)
+              return (
               <Link
                 key={link.href}
                 href={link.href}
                 className={`text-[14px] ${
-                  pathname === link.href ? "text-ink font-medium" : "text-ink-soft hover:text-ink"
+                  active ? "text-ink font-medium" : "text-ink-soft hover:text-ink"
                 }`}
               >
                 {link.label}
               </Link>
-            ))}
+              )
+            })}
           </nav>
         </div>
         <div className="flex items-center gap-4">

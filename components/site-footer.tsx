@@ -6,6 +6,7 @@ const LINKS = [
   { label: "Who we are", href: "/#about" },
   { label: "Impact", href: "/#impact" },
   { label: "Gallery", href: "/gallery" },
+  { label: "Stories", href: "/stories" },
   { label: "Get involved", href: "/#get-involved" },
 ]
 

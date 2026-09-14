@@ -14,6 +14,14 @@ export default function AdminDashboardPage() {
           <h2 className="text-[17px] font-medium text-ink">Gallery</h2>
           <p className="body-copy mt-1.5 text-ink-soft">Upload new photos — they appear first in their section.</p>
         </Link>
+
+        <Link
+          href="/admin/stories"
+          className="rounded-2xl border border-line bg-white p-6 transition hover:border-ink/30"
+        >
+          <h2 className="text-[17px] font-medium text-ink">Stories</h2>
+          <p className="body-copy mt-1.5 text-ink-soft">Write, preview, and publish updates from the field.</p>
+        </Link>
       </div>
     </div>
   )

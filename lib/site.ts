@@ -25,7 +25,7 @@ export const NAV: NavItem[] = [
     href: "/#impact",
     children: [
       { label: "Numbers", href: "/#impact" },
-      { label: "Stories", href: "/#impact" },
+      { label: "Stories", href: "/stories" },
       { label: "Gallery", href: "/gallery" },
     ],
   },
@@ -74,7 +74,7 @@ export const FOOTER_COLUMNS: { heading: string; links: NavChild[] }[] = [
     heading: "Impact",
     links: [
       { label: "Numbers", href: "/#impact" },
-      { label: "Stories", href: "/#impact" },
+      { label: "Stories", href: "/stories" },
       { label: "Gallery", href: "/gallery" },
     ],
   },

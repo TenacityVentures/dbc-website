@@ -225,6 +225,73 @@
     text-decoration-color: var(--ink);
   }
 
+  /* Rich text content — story editor and public story page */
+  .prose-story {
+    font-size: 1.0625rem;
+    line-height: 1.72;
+    color: var(--ink-soft);
+  }
+
+  .prose-story > * + * {
+    margin-top: 1.25em;
+  }
+
+  .prose-story h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-top: 1.8em;
+  }
+
+  .prose-story h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-top: 1.6em;
+  }
+
+  .prose-story p {
+    margin: 0;
+  }
+
+  .prose-story ul,
+  .prose-story ol {
+    padding-left: 1.4em;
+  }
+
+  .prose-story ul {
+    list-style: disc;
+  }
+
+  .prose-story ol {
+    list-style: decimal;
+  }
+
+  .prose-story blockquote {
+    border-left: 2px solid var(--line);
+    padding-left: 1.1em;
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .prose-story img {
+    border-radius: 1rem;
+    width: 100%;
+  }
+
+  .prose-story a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--line);
+    text-underline-offset: 3px;
+  }
+
+  .prose-story a:hover {
+    text-decoration-color: var(--ink);
+  }
+
   /* Buttons */
   .btn {
     display: inline-flex;
