@@ -3,84 +3,83 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+  Quiet, minimal design system.
+  Instrument Sans carries everything; Instrument Serif italic appears only as
+  a small accent. Type is set light and tight, colour is used sparingly.
+*/
+
 :root {
-  --background: oklch(0.985 0.002 85); /* Cream White #F9F9F7 */
-  --foreground: oklch(0.27 0.04 240); /* Deep Midnight #1B334B */
-  --card: oklch(1 0 0); /* White */
-  --card-foreground: oklch(0.27 0.04 240); /* Deep Midnight */
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.27 0.04 240);
-  --primary: oklch(0.27 0.04 240); /* Deep Midnight #1B334B */
-  --primary-foreground: oklch(0.985 0.002 85); /* Cream White */
-  --secondary: oklch(0.68 0.15 195); /* Teal Blue #3AB4C1 */
-  --secondary-foreground: oklch(0.985 0.002 85); /* Cream White */
-  --muted: oklch(0.96 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.68 0.14 15); /* Soft Coral #F36F76 */
-  --accent-foreground: oklch(0.985 0.002 85); /* Cream White */
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.94 0 0);
-  --input: oklch(0.94 0 0);
-  --ring: oklch(0.8 0.15 85); /* Golden Sun #FDB813 */
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 1.5rem;
-  --midnight: oklch(0.27 0.04 240); /* #1B334B */
-  --gold: oklch(0.8 0.15 85); /* #FDB813 */
-  --teal: oklch(0.68 0.15 195); /* #3AB4C1 */
-  --coral: oklch(0.68 0.14 15); /* #F36F76 */
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --ink: #14181b;
+  --ink-soft: #5b666e;
+  --ink-faint: #8b959c;
+  --steel: #4f758b;
+  --steel-dark: #3c5a6b;
+  --action: #0076be;
+  --action-dark: #005b93;
+  --gold: #ffcd00;
+  --cream: #f4f2ed;
+  --mist: #f7f8f8;
+  --line: #e6e8ea;
+
+  --background: #ffffff;
+  --foreground: var(--ink);
+  --card: #ffffff;
+  --card-foreground: var(--ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--ink);
+  --primary: var(--steel);
+  --primary-foreground: #ffffff;
+  --secondary: var(--gold);
+  --secondary-foreground: var(--ink);
+  --muted: var(--mist);
+  --muted-foreground: var(--ink-soft);
+  --accent: var(--action);
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: var(--line);
+  --input: #d9dde0;
+  --ring: var(--action);
+  --radius: 0.5rem;
+
+  --shell: 1180px;
+  --header-h: 76px;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 88px;
+  }
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
-  --sidebar-ring: oklch(0.439 0 0);
+  --background: #0f1214;
+  --foreground: #f2f4f5;
+  --card: #171b1e;
+  --card-foreground: #f2f4f5;
+  --muted: #1d2225;
+  --muted-foreground: #9aa4ab;
+  --border: #262c30;
 }
 
 @theme inline {
-  --font-sans: "Plus Jakarta Sans", "Geist", "Geist Fallback", system-ui, sans-serif;
-  --font-mono: "Geist Mono", "Geist Mono Fallback";
+  --font-sans: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  --font-accent: var(--font-accent), Georgia, serif;
+
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-faint: var(--ink-faint);
+  --color-steel: var(--steel);
+  --color-steel-dark: var(--steel-dark);
+  --color-action: var(--action);
+  --color-action-dark: var(--action-dark);
+  --color-gold: var(--gold);
+  --color-cream: var(--cream);
+  --color-mist: var(--mist);
+  --color-line: var(--line);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -96,40 +95,418 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-navy: var(--navy);
-  --color-gold: var(--gold);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-h) + 24px);
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+    letter-spacing: -0.022em;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+
+  ::selection {
+    background: var(--ink);
+    color: #ffffff;
   }
 }
 
-html {
-  scroll-behavior: smooth;
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: var(--shell);
+    margin-inline: auto;
+    padding-inline: 1.5rem;
+  }
+
+  /* Display sizes — set light and tight rather than heavy */
+  .display-xl {
+    font-size: clamp(2.4rem, 1.6rem + 3.2vw, 4rem);
+    font-weight: 600;
+    line-height: 1.04;
+    letter-spacing: -0.032em;
+  }
+
+  .display-lg {
+    font-size: clamp(2rem, 1.5rem + 2.1vw, 3rem);
+    font-weight: 600;
+    line-height: 1.08;
+    letter-spacing: -0.028em;
+  }
+
+  .display-md {
+    font-size: clamp(1.5rem, 1.25rem + 1.1vw, 1.95rem);
+    font-weight: 600;
+    line-height: 1.16;
+    letter-spacing: -0.022em;
+  }
+
+  .display-stat {
+    font-size: clamp(2.75rem, 2rem + 3.4vw, 4.25rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Small italic serif accent above a heading */
+  .accent {
+    font-family: var(--font-accent), Georgia, serif;
+    font-style: italic;
+    font-size: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.3;
+  }
+
+  /* Uppercase micro-label */
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  .lede {
+    font-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+    line-height: 1.62;
+    color: var(--ink-soft);
+  }
+
+  .body-copy {
+    font-size: 1.0625rem;
+    line-height: 1.68;
+    color: var(--ink-soft);
+  }
+
+  .body-copy a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--line);
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+    transition: text-decoration-color 0.2s ease;
+  }
+
+  .body-copy a:hover {
+    text-decoration-color: var(--ink);
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    line-height: 1;
+    padding: 0.95rem 1.6rem;
+    transition:
+      background-color 0.22s ease,
+      color 0.22s ease,
+      box-shadow 0.22s ease,
+      opacity 0.22s ease;
+  }
+
+  .btn-gold {
+    background: var(--gold);
+    color: var(--ink);
+  }
+
+  .btn-gold:hover {
+    background: #ffd731;
+  }
+
+  /* Give button: the mark unfurls and beats once on hover */
+  .btn-give {
+    gap: 0;
+  }
+
+  .btn-give .brand-mark {
+    width: 0;
+    opacity: 0;
+    transition:
+      width 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+      margin-right 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.24s ease;
+  }
+
+  .btn-give:hover .brand-mark,
+  .btn-give:focus-visible .brand-mark {
+    width: 0.95rem;
+    margin-right: 0.45rem;
+    opacity: 1;
+    animation: mark-beat 0.72s ease-in-out 0.12s;
+  }
+
+  .btn-dark {
+    background: var(--ink);
+    color: #ffffff;
+  }
+
+  .btn-dark:hover {
+    background: #2b3237;
+  }
+
+  .btn-ghost {
+    background: rgb(255 255 255 / 0.14);
+    color: #ffffff;
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.35);
+    backdrop-filter: blur(8px);
+  }
+
+  .btn-ghost:hover {
+    background: rgb(255 255 255 / 0.24);
+  }
+
+  /* Text link with a trailing arrow */
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--ink);
+    padding-bottom: 2px;
+    border-bottom: 1px solid var(--line);
+    transition: border-color 0.22s ease;
+  }
+
+  .link-arrow:hover {
+    border-color: var(--ink);
+  }
+
+  .link-arrow svg {
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .link-arrow:hover svg {
+    transform: translateX(4px);
+  }
+
+  /* Frosted panel over imagery */
+  .glass {
+    background: rgb(20 24 27 / 0.34);
+    backdrop-filter: blur(8px) saturate(130%);
+    /*-webkit-backdrop-filter: blur(200px) saturate(130%);*/
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.16);
+  }
+
+  /* Sticky column that holds its heading while the content scrolls past */
+  .sticky-col {
+    position: static;
+  }
+
+  @media (min-width: 1024px) {
+    .sticky-col {
+      position: sticky;
+      top: calc(var(--header-h) + 3.5rem);
+      align-self: start;
+    }
+  }
+
+  /* Hairline-separated figure */
+  .rule-top {
+    border-top: 1px solid var(--line);
+  }
+
+  /*
+    Brand mark drawn from one traced SVG used as a mask, so it stays sharp at
+    any size and takes its colour from currentColor. Cheaper than inlining the
+    path everywhere it appears.
+  */
+  .brand-mark {
+    display: block;
+    background-color: currentColor;
+    -webkit-mask-image: url("/brand/mark.svg");
+    mask-image: url("/brand/mark.svg");
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+  }
+}
+
+@keyframes mark-beat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  28% {
+    transform: scale(1.22);
+  }
+  55% {
+    transform: scale(0.96);
+  }
+  78% {
+    transform: scale(1.08);
+  }
+}
+
+/* ---------- Intro reveal ---------- */
+
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  /*
+    Continues the clip's vignette beyond its edges so the letterbox on portrait
+    screens is invisible and the intro reads as genuinely full-bleed.
+  */
+  background:
+    radial-gradient(
+      circle var(--intro-r, 70%) at 50% 50%,
+      var(--intro-s0, #fefefe) 0%,
+      var(--intro-s1, #f1f1f1) 25%,
+      var(--intro-s2, #e3e3e3) 50%,
+      var(--intro-s3, #d4d4d4) 75%,
+      var(--intro-s4, #c6c6c6) 100%
+    ),
+    var(--intro-s4, #c6c6c6);
+  opacity: 1;
+  /* Hold opacity at first so the zoom reads before the overlay clears. */
+  transition: opacity 480ms cubic-bezier(0.6, 0, 0.9, 0.2) 270ms;
+}
+
+/*
+  Outro: the mark rushes past the viewer as the overlay clears, so the page
+  behind feels like it was underneath all along rather than cross-fading in.
+*/
+.intro-overlay--leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.intro-overlay--leaving .intro-video {
+  transform: scale(2.6);
+  filter: blur(6px);
+}
+
+/* Fills the viewport edge to edge. */
+.intro-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1);
+  transform-origin: center;
+  will-change: transform;
+  /* Accelerating curve so the push forward gathers speed. */
+  transition:
+    transform 750ms cubic-bezier(0.66, 0, 0.86, 0.2),
+    filter 750ms ease-in;
+}
+
+/*
+  Portrait screens are far narrower than the 16:9 clip, so `cover` would crop
+  the mark off the sides. Fit it instead — the overlay background is sampled
+  from the clip itself, so the fill is seamless rather than a black letterbox.
+*/
+@media (orientation: portrait) and (max-width: 900px) {
+  .intro-video {
+    object-fit: contain;
+  }
+}
+
+.intro-btn {
+  position: absolute;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 9999px;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: rgb(20 24 27 / 0.62);
+  background: rgb(255 255 255 / 0.55);
+  backdrop-filter: blur(10px);
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.intro-btn:hover {
+  color: rgb(20 24 27);
+  background: rgb(255 255 255 / 0.9);
+}
+
+html.intro-active,
+html.intro-active body {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-overlay {
+    display: none;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

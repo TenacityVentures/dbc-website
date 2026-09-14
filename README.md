@@ -34,7 +34,8 @@ This is the official website for Dream Big for Children, built with modern web t
 - **Framework:** Next.js 16 (App Router)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS v4
-- **Animations:** Framer Motion
+- **Typography:** Montserrat (display) + Source Serif 4 (body)
+- **Animations:** Framer Motion (reveals, menus) and GSAP ScrollTrigger (parallax, counters)
 - **UI Components:** shadcn/ui
 - **Deployment:** Vercel
 - **Analytics:** Google Analytics 4

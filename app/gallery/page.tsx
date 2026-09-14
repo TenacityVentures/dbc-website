@@ -65,35 +65,35 @@ export default function GalleryPage() {
       id: "community",
       title: "Community Engagement",
       footnote:
-        "Footnote: Community outreach sessions with families and local leaders in Bagbo and Tikonko chiefdoms to identify needs and coordinate support.",
+        "Community outreach sessions with families and local leaders in Bagbo and Tikonko chiefdoms to identify needs and coordinate support.",
       images: [],
     },
     {
       id: "education",
       title: "Quality Education",
       footnote:
-        "Footnote: School support through learning materials, classroom engagement, and child-focused activities that improve attendance and confidence.",
+        "School support through learning materials, classroom engagement, and child-focused activities that improve attendance and confidence.",
       images: [],
     },
     {
       id: "agriculture",
       title: "Agriculture and Food Security",
       footnote:
-        "Footnote: Seed distribution and farming guidance to improve household food production, strengthen nutrition, and increase self-reliance.",
+        "Seed distribution and farming guidance to improve household food production, strengthen nutrition, and increase self-reliance.",
       images: [],
     },
     {
       id: "health",
       title: "Health and Wellbeing",
       footnote:
-        "Footnote: Health education, hygiene awareness, and wellbeing support for children, youth, and families.",
+        "Health education, hygiene awareness, and wellbeing support for children, youth, and families.",
       images: [],
     },
     {
       id: "empowerment",
       title: "Collaboration and Child Safety Dialogues",
       footnote:
-        "Footnote: Community meetings and partnership sessions focused on child safety, collaboration, and local development planning.",
+        "Community meetings and partnership sessions focused on child safety, collaboration, and local development planning.",
       images: [],
     },
   ]

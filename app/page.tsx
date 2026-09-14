@@ -1,23 +1,29 @@
-import { Navigation } from "@/components/navigation"
-import { HeroSection } from "@/components/hero-section"
-import { AboutSection } from "@/components/about-section"
-import { FocusAreas } from "@/components/focus-areas"
-import { GallerySection } from "@/components/gallery-section"
-import { ImpactStats } from "@/components/impact-stats"
-import { DonateSection } from "@/components/donate-section"
-import { Footer } from "@/components/footer"
+import { SiteHeader } from "@/components/site-header"
+import { Hero } from "@/components/hero"
+import { WhatWeDo } from "@/components/what-we-do"
+import { About } from "@/components/about"
+import { QuoteBand } from "@/components/quote-band"
+import { Impact } from "@/components/impact"
+import { WhereWeWork } from "@/components/where-we-work"
+import { WaysToGive } from "@/components/ways-to-give"
+import { StoryCta } from "@/components/story-cta"
+import { SiteFooter } from "@/components/site-footer"
 
 export default function Home() {
   return (
-    <main className="min-h-screen overflow-hidden">
-      <Navigation />
-      <HeroSection />
-      <AboutSection />
-      <FocusAreas />
-      <GallerySection />
-      <ImpactStats />
-      <DonateSection />
-      <Footer />
-    </main>
+    <>
+      <SiteHeader />
+      <main>
+        <Hero />
+        <WhatWeDo />
+        <About />
+        <QuoteBand />
+        <Impact />
+        <WhereWeWork />
+        <WaysToGive />
+        <StoryCta />
+      </main>
+      <SiteFooter />
+    </>
   )
 }

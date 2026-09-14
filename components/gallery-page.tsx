@@ -1,8 +1,10 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
-import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
+import { useEffect, useMemo, useRef, useState } from "react"
+import { ChevronLeft, ChevronRight, X } from "lucide-react"
+import { SiteHeader } from "@/components/site-header"
+import { SiteFooter } from "@/components/site-footer"
+import { Reveal } from "@/components/reveal"
 
 type GalleryImage = {
   src: string
@@ -20,6 +22,56 @@ type GallerySection = {
 
 const PAGE_SIZE = 8
 
+/**
+ * Thumbnail that fades in once decoded. The `complete` check on mount matters:
+ * server-rendered images often finish loading before React attaches onLoad,
+ * which would otherwise leave them stuck at opacity 0.
+ */
+function Thumb({
+  image,
+  priority,
+  onOpen,
+}: {
+  image: GalleryImage
+  priority: boolean
+  onOpen: () => void
+}) {
+  const imgRef = useRef<HTMLImageElement>(null)
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    if (imgRef.current?.complete) setLoaded(true)
+  }, [])
+
+  return (
+    <button
+      type="button"
+      onClick={onOpen}
+      className="group relative block aspect-[4/5] w-full overflow-hidden rounded-2xl bg-mist focus:outline-none focus-visible:ring-2 focus-visible:ring-ink focus-visible:ring-offset-2"
+      aria-label={`Open image: ${image.alt}`}
+    >
+      {!loaded && (
+        <div className="pointer-events-none absolute inset-0 grid place-items-center bg-mist">
+          <span className="brand-mark h-10 w-10 animate-pulse text-ink/15" aria-hidden />
+        </div>
+      )}
+      <img
+        ref={imgRef}
+        src={image.src}
+        alt={image.alt}
+        loading={priority ? "eager" : "lazy"}
+        decoding="async"
+        fetchPriority={priority ? "high" : "auto"}
+        className={`h-full w-full object-cover transition-all duration-[900ms] ease-out group-hover:scale-[1.05] ${
+          loaded ? "opacity-100" : "opacity-0"
+        }`}
+        onLoad={() => setLoaded(true)}
+        onError={() => setLoaded(true)}
+      />
+    </button>
+  )
+}
+
 type GalleryPageClientProps = {
   sections: GallerySection[]
 }
@@ -27,12 +79,11 @@ type GalleryPageClientProps = {
 export function GalleryPageClient({ sections }: GalleryPageClientProps) {
   const [activeImageIndex, setActiveImageIndex] = useState<number | null>(null)
   const [visibleBySection, setVisibleBySection] = useState<Record<string, number>>({})
-  const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({})
 
   const allImages = useMemo(() => sections.flatMap((section) => section.images), [sections])
   const totalImages = allImages.length
   const priorityImageCount = Math.min(2, totalImages)
-  const activeImage = activeImageIndex !== null ? allImages[activeImageIndex] ?? null : null
+  const activeImage = activeImageIndex !== null ? (allImages[activeImageIndex] ?? null) : null
 
   useEffect(() => {
     setVisibleBySection((current) => {
@@ -54,12 +105,10 @@ export function GalleryPageClient({ sections }: GalleryPageClientProps) {
 
       if (activeImageIndex !== null && allImages.length > 0) {
         if (event.key === "ArrowRight") {
-          const nextIndex = (activeImageIndex + 1) % allImages.length
-          setActiveImageIndex(nextIndex)
+          setActiveImageIndex((activeImageIndex + 1) % allImages.length)
         }
         if (event.key === "ArrowLeft") {
-          const prevIndex = (activeImageIndex - 1 + allImages.length) % allImages.length
-          setActiveImageIndex(prevIndex)
+          setActiveImageIndex((activeImageIndex - 1 + allImages.length) % allImages.length)
         }
       }
     }
@@ -75,176 +124,154 @@ export function GalleryPageClient({ sections }: GalleryPageClientProps) {
     }
   }, [activeImageIndex, allImages.length])
 
+  function step(direction: 1 | -1) {
+    if (allImages.length === 0 || activeImageIndex === null) return
+    setActiveImageIndex((activeImageIndex + direction + allImages.length) % allImages.length)
+  }
+
   return (
-    <main className="min-h-screen bg-slate-50">
-      <Navigation />
+    <>
+      <SiteHeader />
 
-      <section className="pt-28 pb-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="max-w-2xl">
-            <p className="text-xs font-bold uppercase tracking-[0.35em] text-secondary">Our Gallery</p>
-            <h1 className="mt-4 text-4xl md:text-5xl font-extrabold text-primary">Stories in Pictures</h1>
-            <p className="mt-4 text-slate-600">
-              A glimpse into our programs, partners, and the communities we serve.
-            </p>
-            <p className="mt-3 text-sm font-semibold text-slate-500">
-              Showing {totalImages} images across {sections.length} program areas
-            </p>
+      <main>
+        {/* Page header */}
+        <section className="bg-mist py-16 lg:py-24">
+          <div className="shell">
+            <Reveal>
+              <p className="accent text-ink-faint">Our gallery</p>
+              <h1 className="display-xl mt-2 max-w-[16ch] text-ink text-balance">Stories in pictures.</h1>
+              <p className="lede mt-5 max-w-[58ch] text-pretty">
+                A glimpse into our programmes, partners, and the communities we serve across Bo District, Sierra
+                Leone.
+              </p>
+              <p className="eyebrow mt-7 text-ink-faint">
+                {totalImages} images &middot; {sections.length} programme areas
+              </p>
+            </Reveal>
           </div>
+        </section>
 
-          {sections.map((section, sectionIndex) => {
-            const visibleCount = visibleBySection[section.id] ?? PAGE_SIZE
-            const visibleImages = section.images.slice(0, visibleCount)
-            const canLoadMore = visibleCount < section.images.length
+        <section className="bg-white py-16 lg:py-24">
+          <div className="shell">
+            {sections.map((section, sectionIndex) => {
+              const visibleCount = visibleBySection[section.id] ?? PAGE_SIZE
+              const visibleImages = section.images.slice(0, visibleCount)
+              const canLoadMore = visibleCount < section.images.length
 
-            return (
-              <section key={section.id} className={sectionIndex === 0 ? "mt-12" : "mt-16"}>
-                <h2 className="text-2xl md:text-3xl font-extrabold text-primary">{section.title}</h2>
-                <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-                  {visibleImages.map((image) => {
-                    const globalIndex = allImages.indexOf(image)
-                    const imageKey = `${image.src}-${globalIndex}`
-                    return (
-                      <button
-                        key={imageKey}
-                        type="button"
-                        onClick={() => setActiveImageIndex(globalIndex)}
-                        className="group relative overflow-hidden rounded-3xl shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-secondary"
-                      >
-                        {!loadedImages[imageKey] && (
-                          <div className="pointer-events-none absolute inset-0 animate-pulse bg-slate-200" />
-                        )}
-                        <img
-                          src={image.src}
-                          alt={image.alt}
-                          loading={globalIndex < priorityImageCount ? "eager" : "lazy"}
-                          decoding="async"
-                          fetchPriority={globalIndex < priorityImageCount ? "high" : "auto"}
-                          className={`h-44 w-full object-cover transition duration-300 group-hover:scale-105 sm:h-52 lg:h-56 ${
-                            loadedImages[imageKey] ? "opacity-100" : "opacity-0"
-                          }`}
-                          onLoad={() => setLoadedImages((prev) => ({ ...prev, [imageKey]: true }))}
-                          onError={() => setLoadedImages((prev) => ({ ...prev, [imageKey]: true }))}
-                        />
-                      </button>
-                    )
-                  })}
-                </div>
-                <p className="mt-4 text-sm text-slate-600 italic">{section.footnote}</p>
-                {canLoadMore && (
-                  <div className="mt-6">
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setVisibleBySection((current) => ({
-                          ...current,
-                          [section.id]: Math.min((current[section.id] ?? PAGE_SIZE) + PAGE_SIZE, section.images.length),
-                        }))
-                      }
-                      className="rounded-full bg-secondary px-5 py-2 text-xs font-bold uppercase tracking-wide text-primary shadow-md transition hover:bg-secondary/90"
-                    >
-                      Load More {section.title}
-                    </button>
+              return (
+                <section key={section.id} className={sectionIndex === 0 ? "" : "mt-20 lg:mt-24"}>
+                  <Reveal>
+                    <h2 className="display-md text-ink">{section.title}</h2>
+                    <p className="body-copy mt-3 max-w-[68ch]">{section.footnote}</p>
+                  </Reveal>
+
+                  <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 lg:gap-5">
+                    {visibleImages.map((image, i) => {
+                      const globalIndex = allImages.indexOf(image)
+                      const imageKey = `${image.src}-${globalIndex}`
+                      return (
+                        <Reveal key={imageKey} delay={(i % 8) * 0.05} y={20}>
+                          <Thumb
+                            image={image}
+                            priority={globalIndex < priorityImageCount}
+                            onOpen={() => setActiveImageIndex(globalIndex)}
+                          />
+                        </Reveal>
+                      )
+                    })}
                   </div>
-                )}
-              </section>
-            )
-          })}
 
-          {totalImages === 0 && (
-            <div className="mt-10 rounded-3xl border border-dashed border-slate-300 bg-white p-8 text-center text-slate-600">
-              No images found in <span className="font-semibold text-primary">public/DBC/</span>.
-            </div>
-          )}
-        </div>
-      </section>
+                  {canLoadMore && (
+                    <div className="mt-8">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setVisibleBySection((current) => ({
+                            ...current,
+                            [section.id]: Math.min(
+                              (current[section.id] ?? PAGE_SIZE) + PAGE_SIZE,
+                              section.images.length,
+                            ),
+                          }))
+                        }
+                        className="btn border border-line text-ink hover:bg-mist"
+                      >
+                        Load more
+                      </button>
+                    </div>
+                  )}
+                </section>
+              )
+            })}
 
+            {totalImages === 0 && (
+              <div className="rounded-2xl border border-dashed border-line bg-mist p-10 text-center">
+                <p className="body-copy">No images found in the gallery folders yet.</p>
+              </div>
+            )}
+          </div>
+        </section>
+      </main>
 
+      {/* Lightbox */}
       {activeImage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-0 sm:p-0" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/95"
+          role="dialog"
+          aria-modal="true"
+          aria-label={activeImage.alt}
+        >
+          <button
+            type="button"
             className="absolute inset-0 z-0 cursor-zoom-out"
-            aria-hidden="true"
+            aria-label="Close image viewer"
             onClick={() => setActiveImageIndex(null)}
           />
-          <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
-            <button
-              type="button"
-              onClick={() => setActiveImageIndex(null)}
-              className="absolute right-4 top-4 z-20 rounded-full bg-white/90 px-3 py-2 text-xs font-semibold text-gray-900 shadow hover:bg-white sm:right-6 sm:top-6 sm:text-sm"
-            >
-              Close
-            </button>
 
-            <button
-              type="button"
-              onClick={() => {
-                if (allImages.length === 0 || activeImageIndex === null) {
-                  return
-                }
-                const prevIndex = (activeImageIndex - 1 + allImages.length) % allImages.length
-                setActiveImageIndex(prevIndex)
-              }}
-              className="absolute left-4 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-white/90 px-3 py-2 text-sm font-semibold text-gray-900 shadow hover:bg-white sm:inline-flex"
-            >
-              Prev
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                if (allImages.length === 0 || activeImageIndex === null) {
-                  return
-                }
-                const nextIndex = (activeImageIndex + 1) % allImages.length
-                setActiveImageIndex(nextIndex)
-              }}
-              className="absolute right-4 top-1/2 z-20 hidden -translate-y-1/2 rounded-full bg-white/90 px-3 py-2 text-sm font-semibold text-gray-900 shadow hover:bg-white sm:inline-flex"
-            >
-              Next
-            </button>
+          <button
+            type="button"
+            onClick={() => setActiveImageIndex(null)}
+            className="absolute right-4 top-4 z-20 flex h-11 w-11 items-center justify-center rounded-full bg-white/95 text-ink transition hover:bg-white sm:right-6 sm:top-6"
+            aria-label="Close"
+          >
+            <X className="h-5 w-5" />
+          </button>
 
-            <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-3 sm:hidden">
-              <button
-                type="button"
-                onClick={() => {
-                  if (allImages.length === 0 || activeImageIndex === null) {
-                    return
-                  }
-                  const prevIndex = (activeImageIndex - 1 + allImages.length) % allImages.length
-                  setActiveImageIndex(prevIndex)
-                }}
-                className="rounded-full bg-white/90 px-4 py-2 text-xs font-semibold text-gray-900 shadow hover:bg-white"
-              >
-                Prev
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  if (allImages.length === 0 || activeImageIndex === null) {
-                    return
-                  }
-                  const nextIndex = (activeImageIndex + 1) % allImages.length
-                  setActiveImageIndex(nextIndex)
-                }}
-                className="rounded-full bg-white/90 px-4 py-2 text-xs font-semibold text-gray-900 shadow hover:bg-white"
-              >
-                Next
-              </button>
-            </div>
+          <button
+            type="button"
+            onClick={() => step(-1)}
+            className="absolute left-3 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-ink transition hover:bg-white sm:left-6"
+            aria-label="Previous image"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
 
+          <button
+            type="button"
+            onClick={() => step(1)}
+            className="absolute right-3 top-1/2 z-20 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-ink transition hover:bg-white sm:right-6"
+            aria-label="Next image"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+
+          <figure className="relative z-10 flex max-h-full flex-col items-center justify-center px-4 py-16">
             <img
               src={activeImage.src}
               alt={activeImage.alt}
               loading="eager"
               decoding="async"
-              className="max-h-[70vh] max-w-full rounded-3xl object-contain shadow-2xl sm:max-h-[85vh]"
-              style={{ margin: 'auto', display: 'block' }}
+              className="max-h-[76vh] max-w-full object-contain shadow-2xl"
             />
-          </div>
+            <figcaption className="mt-4 text-center font-[family-name:var(--font-accent)] text-[14px] italic text-white/70">
+              {activeImage.caption ?? activeImage.alt}
+              {activeImage.location ? ` — ${activeImage.location}` : ""}
+            </figcaption>
+          </figure>
         </div>
       )}
 
-      <Footer />
-    </main>
+      <SiteFooter />
+    </>
   )
 }

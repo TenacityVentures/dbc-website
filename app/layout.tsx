@@ -1,14 +1,25 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Plus_Jakarta_Sans } from "next/font/google"
+import { Instrument_Sans, Instrument_Serif } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import Script from "next/script"
+import { IntroReveal } from "@/components/intro-reveal"
 import "./globals.css"
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "600", "700", "800"],
-  variable: "--font-sans",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-display",
+  display: "swap",
+})
+
+// Used sparingly, for italic accents only.
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+  variable: "--font-accent",
+  display: "swap",
 })
 
 export const metadata: Metadata = {
@@ -40,10 +51,10 @@ export const metadata: Metadata = {
     siteName: "Dream Big for Children (DBC)",
     images: [
       {
-        url: "/landing.jpg",
+        url: "/brand/og.jpg",
         width: 1200,
         height: 630,
-        alt: "Dream Big for Children - Empowering young lives in Sierra Leone",
+        alt: "Dream Big for Children — protecting, educating, and empowering vulnerable children in Sierra Leone",
       },
     ],
   },
@@ -52,7 +63,7 @@ export const metadata: Metadata = {
     title: "Dream Big for Children (DBC) | Empowering Young Lives in Sierra Leone",
     description:
       "Supporting vulnerable children in Sierra Leone through education, child protection, health, and economic empowerment programs.",
-    images: ["/landing.jpg"],
+    images: ["/brand/og.jpg"],
   },
   robots: {
     index: true,
@@ -67,18 +78,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      {
-        url: "/web-app-manifest-192x192.png",
-        sizes: "192x192",
-        type: "image/png",
-      },
-      {
-        url: "/web-app-manifest-512x512.png",
-        sizes: "512x512",
-        type: "image/png",
-      },
+      { url: "/brand/icon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/brand/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/brand/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
-    apple: "/web-app-manifest-192x192.png",
+    apple: "/brand/icon-180.png",
   },
 }
 
@@ -99,8 +103,13 @@ export default function RootLayout({
             gtag('config', 'G-XXXXXXXXXX');
           `}
         </Script>
+        {/* The overlay is dismissed by script, so hide it when there is none. */}
+        <noscript>
+          <style>{`.intro-overlay{display:none!important}`}</style>
+        </noscript>
       </head>
-      <body className={`${plusJakartaSans.variable} font-sans antialiased`}>
+      <body className={`${instrumentSans.variable} ${instrumentSerif.variable} antialiased`}>
+        <IntroReveal />
         {children}
         <Analytics />
       </body>
