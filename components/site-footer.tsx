@@ -17,7 +17,7 @@ export function SiteFooter() {
         <div className="flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
           <div className="max-w-[34ch]">
             <Link href="/" className="flex items-center gap-2.5 text-ink">
-              <span className="brand-mark h-8 w-8" aria-hidden />
+              <img src="/brand/logo.png" alt="" className="h-8 w-8 object-contain" aria-hidden />
               <span className="text-[17px] font-normal tracking-[-0.02em] text-ink">Dream Big</span>
             </Link>
             <p className="body-copy mt-5 text-[15px]">

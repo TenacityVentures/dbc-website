@@ -1,8 +1,9 @@
 "use client"
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
+import { usePathname } from "next/navigation"
 
-/** Wall-clock failsafe; the clip itself is ~10.0s. */
+/** Wall-clock failsafe; the clip itself is ~8.0s. */
 const MAX_DURATION = 13000
 /** If the clip cannot start by this point, drop the intro and show the page. */
 const START_DEADLINE = 2500
@@ -21,6 +22,8 @@ const FADE_MS = 750
  * it before the first paint.
  */
 export function IntroReveal() {
+  const pathname = usePathname()
+  const skipIntro = pathname?.startsWith("/admin") ?? false
   const [state, setState] = useState<"pending" | "playing" | "leaving" | "done">("pending")
   const videoRef = useRef<HTMLVideoElement>(null)
   const timers = useRef<number[]>([])
@@ -54,6 +57,10 @@ export function IntroReveal() {
 
   // Decide before paint so a skipped intro is never visible.
   useLayoutEffect(() => {
+    if (skipIntro) {
+      setState("done")
+      return
+    }
     let reduced = false
     try {
       reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -61,7 +68,7 @@ export function IntroReveal() {
       reduced = false
     }
     setState(reduced ? "done" : "playing")
-  }, [])
+  }, [skipIntro])
 
   useEffect(() => {
     if (state !== "playing") return

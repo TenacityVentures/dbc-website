@@ -38,8 +38,10 @@ export function SiteHeader() {
           className="group flex items-center gap-2.5 text-ink"
           aria-label="Dream Big for Children — home"
         >
-          <span
-            className="brand-mark h-8 w-8 transition-transform duration-500 ease-out group-hover:scale-[1.06]"
+          <img
+            src="/brand/logo.png"
+            alt=""
+            className="h-8 w-8 object-contain transition-transform duration-500 ease-out group-hover:scale-[1.06]"
             aria-hidden
           />
           <span className="text-[17px] font-normal tracking-[-0.02em] text-ink">Dream Big</span>
