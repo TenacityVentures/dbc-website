@@ -17,7 +17,7 @@ import {
   Target,
   Users,
 } from "lucide-react"
-import type { IconName, Program } from "@/lib/programs"
+import type { IconName } from "@/lib/programs"
 import { CONTACT } from "@/lib/site"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
@@ -37,7 +37,27 @@ const ICONS: Record<IconName, LucideIcon> = {
   users: Users,
 }
 
-export function ProgramPage({ program }: { program: Program }) {
+export type ProgramPageContent = {
+  eyebrow: string
+  title: string
+  lede: string
+  heroImage: string
+  heroCaption: string
+  overviewTitle: string
+  overview: { text: string }[]
+  overviewImage: string
+  offerTitle: string
+  offerSubtitle: string
+  offers: { title: string; description: string; icon?: IconName }[]
+  impactTitle: string
+  impact: string
+  impactImage: string
+  stats: { value: string; label: string }[]
+  ctaTitle: string
+  ctaBody: string
+}
+
+export function ProgramPage({ program }: { program: ProgramPageContent }) {
   return (
     <>
       <SiteHeader />
@@ -67,9 +87,9 @@ export function ProgramPage({ program }: { program: Program }) {
             <div className="lg:pt-2">
               <Reveal>
                 <div className="space-y-5">
-                  {program.overview.map((paragraph) => (
-                    <p key={paragraph.slice(0, 40)} className="body-copy">
-                      {paragraph}
+                  {program.overview.map((paragraph, i) => (
+                    <p key={i} className="body-copy">
+                      {paragraph.text}
                     </p>
                   ))}
                 </div>
@@ -92,9 +112,9 @@ export function ProgramPage({ program }: { program: Program }) {
             <SectionHeading title={program.offerTitle} intro={program.offerSubtitle} className="max-w-[40ch]" />
             <div className="mt-14 grid gap-x-10 gap-y-12 md:grid-cols-3">
               {program.offers.map((offer, i) => {
-                const Icon = ICONS[offer.icon]
+                const Icon = ICONS[offer.icon ?? "heart"]
                 return (
-                  <Reveal key={offer.title} delay={i * 0.07}>
+                  <Reveal key={i} delay={i * 0.07}>
                     <div className="rule-top pt-6">
                       <Icon className="h-6 w-6 text-ink" strokeWidth={1.5} aria-hidden />
                       <h3 className="mt-5 text-[19px] font-semibold tracking-[-0.02em] text-ink">{offer.title}</h3>

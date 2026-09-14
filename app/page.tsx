@@ -20,13 +20,13 @@ export default async function Home() {
       <SiteHeader />
       <main>
         <Hero {...content.hero} />
-        <WhatWeDo />
+        <WhatWeDo {...content["what-we-do"]} />
         <About {...content.about} />
         <QuoteBand {...content.quote} />
         <Impact {...content.impact} />
         <WhereWeWork {...content["where-we-work"]} />
         <WaysToGive {...content["ways-to-give"]} />
-        <StoryCta />
+        <StoryCta {...content["story-cta"]} />
       </main>
       <SiteFooter />
     </>

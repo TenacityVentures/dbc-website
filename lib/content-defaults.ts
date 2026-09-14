@@ -1,3 +1,5 @@
+import { PROGRAMS } from "@/lib/programs"
+
 /** Current hardcoded copy, used as the fallback when a block has no row in `site_content` yet. */
 export const CONTENT_DEFAULTS: Record<string, Record<string, any>> = {
   home: {
@@ -75,5 +77,65 @@ export const CONTENT_DEFAULTS: Record<string, Record<string, any>> = {
         },
       ],
     },
+    "what-we-do": {
+      eyebrow: "What we do",
+      title: "Sustainable transformation.",
+      intro: "We work alongside families, schools, and community leaders across Bo District, Sierra Leone.",
+      pillars: [
+        {
+          label: "Education",
+          href: "/programs/education",
+          body: "School materials, uniforms, and follow-up so children stay enrolled and keep learning.",
+        },
+        {
+          label: "Child protection",
+          href: "/programs/protection",
+          body: "Prevention, counselling, and family strengthening that keep children safe from harm.",
+        },
+        {
+          label: "Health & well-being",
+          href: "/programs/health",
+          body: "Nutrition, basic healthcare, and hygiene education for healthy growth.",
+        },
+        {
+          label: "Empowerment",
+          href: "/programs/empowerment",
+          body: "Skills training and livelihoods so parents can provide for their families.",
+        },
+      ],
+    },
+    "story-cta": {
+      title: "You can be part of the story.",
+      primaryLabel: "Get involved",
+      primaryHref: "/#get-involved",
+      secondaryLabel: "See our work",
+      secondaryHref: "/gallery",
+    },
   },
+}
+
+// Programme pages reuse lib/programs.ts as their defaults, so there's one
+// source of truth instead of the copy being retyped here.
+for (const program of Object.values(PROGRAMS)) {
+  CONTENT_DEFAULTS[`program-${program.slug}`] = {
+    content: {
+      eyebrow: program.eyebrow,
+      title: program.title,
+      lede: program.lede,
+      heroImage: program.heroImage,
+      heroCaption: program.heroCaption,
+      overviewTitle: program.overviewTitle,
+      overview: program.overview.map((text) => ({ text })),
+      overviewImage: program.overviewImage,
+      offerTitle: program.offerTitle,
+      offerSubtitle: program.offerSubtitle,
+      offers: program.offers,
+      impactTitle: program.impactTitle,
+      impact: program.impact,
+      impactImage: program.impactImage,
+      stats: program.stats,
+      ctaTitle: program.ctaTitle,
+      ctaBody: program.ctaBody,
+    },
+  }
 }

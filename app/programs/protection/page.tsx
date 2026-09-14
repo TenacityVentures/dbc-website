@@ -1,14 +1,18 @@
 import type { Metadata } from "next"
-import { ProgramPage } from "@/components/program-page"
-import { PROGRAMS } from "@/lib/programs"
+import { ProgramPage, type ProgramPageContent } from "@/components/program-page"
+import { getBlockContent } from "@/lib/content-data"
 
-const program = PROGRAMS.protection
+export const revalidate = 0
 
-export const metadata: Metadata = {
-  title: `${program.title} | Dream Big for Children`,
-  description: program.lede,
+export async function generateMetadata(): Promise<Metadata> {
+  const content = await getBlockContent("program-protection", "content")
+  return {
+    title: `${content.title} | Dream Big for Children`,
+    description: content.lede,
+  }
 }
 
-export default function Page() {
-  return <ProgramPage program={program} />
+export default async function Page() {
+  const content = await getBlockContent("program-protection", "content")
+  return <ProgramPage program={content as ProgramPageContent} />
 }

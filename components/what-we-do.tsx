@@ -3,43 +3,32 @@
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import { Reveal, SectionHeading } from "@/components/reveal"
+import { CONTENT_DEFAULTS } from "@/lib/content-defaults"
 
-const PILLARS = [
-  {
-    label: "Education",
-    href: "/programs/education",
-    body: "School materials, uniforms, and follow-up so children stay enrolled and keep learning.",
-  },
-  {
-    label: "Child protection",
-    href: "/programs/protection",
-    body: "Prevention, counselling, and family strengthening that keep children safe from harm.",
-  },
-  {
-    label: "Health & well-being",
-    href: "/programs/health",
-    body: "Nutrition, basic healthcare, and hygiene education for healthy growth.",
-  },
-  {
-    label: "Empowerment",
-    href: "/programs/empowerment",
-    body: "Skills training and livelihoods so parents can provide for their families.",
-  },
-]
+type Pillar = { label: string; href: string; body: string }
 
-export function WhatWeDo() {
+type WhatWeDoProps = {
+  eyebrow?: string
+  title?: string
+  intro?: string
+  pillars?: Pillar[]
+}
+
+const DEFAULTS = CONTENT_DEFAULTS.home["what-we-do"]
+
+export function WhatWeDo({
+  eyebrow = DEFAULTS.eyebrow,
+  title = DEFAULTS.title,
+  intro = DEFAULTS.intro,
+  pillars = DEFAULTS.pillars,
+}: WhatWeDoProps) {
   return (
     <section id="what-we-do" className="bg-white py-24 lg:py-32">
       <div className="shell grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20">
-        <SectionHeading
-          sticky
-          eyebrow="What we do"
-          title="Sustainable transformation."
-          intro="We work alongside families, schools, and community leaders across Bo District, Sierra Leone."
-        />
+        <SectionHeading sticky eyebrow={eyebrow} title={title} intro={intro} />
 
         <div className="lg:pt-2">
-          {PILLARS.map((pillar, i) => (
+          {pillars.map((pillar, i) => (
             <Reveal key={pillar.label} delay={i * 0.06}>
               <Link
                 href={pillar.href}
