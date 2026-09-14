@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import { Reveal, SectionHeading } from "@/components/reveal"
+import { CONTENT_DEFAULTS } from "@/lib/content-defaults"
 
 /** Counts up to `value` once scrolled into view. */
 function Counter({ value, suffix = "" }: { value: number; suffix?: string }) {
@@ -55,52 +56,61 @@ function Counter({ value, suffix = "" }: { value: number; suffix?: string }) {
   )
 }
 
-const STATS = [
-  { value: 300, suffix: "+", label: "Community members reached" },
-  { value: 40, suffix: "+", label: "Children supported each year" },
-  { value: 5, suffix: "", label: "Communities in Bo District" },
-  { value: 2022, suffix: "", label: "Founded in Sierra Leone", plain: true },
-]
+type Stat = { value: string; suffix: string; label: string }
 
-export function Impact() {
+type ImpactProps = {
+  title?: string
+  stats?: Stat[]
+  storyEyebrow?: string
+  storyTitle?: string
+  storyBody?: string
+  storyImage?: string
+}
+
+const DEFAULTS = CONTENT_DEFAULTS.home.impact
+
+export function Impact({
+  title = DEFAULTS.title,
+  stats = DEFAULTS.stats,
+  storyEyebrow = DEFAULTS.storyEyebrow,
+  storyTitle = DEFAULTS.storyTitle,
+  storyBody = DEFAULTS.storyBody,
+  storyImage = DEFAULTS.storyImage,
+}: ImpactProps) {
   return (
     <section id="impact" className="bg-white py-24 lg:py-32">
       <div className="shell">
-        <SectionHeading eyebrow="Impact" title="Numbers and stories." className="max-w-[34ch]" />
+        <SectionHeading eyebrow="Impact" title={title} className="max-w-[34ch]" />
 
         {/* Figures on hairline rules — no boxes */}
         <div className="mt-14 grid grid-cols-2 gap-x-8 gap-y-10 lg:mt-16 lg:grid-cols-4 lg:gap-x-10">
-          {STATS.map((stat, i) => (
-            <Reveal key={stat.label} delay={i * 0.06}>
-              <div className="rule-top pt-5">
-                <p className="display-stat text-ink">
-                  {stat.plain ? stat.value : <Counter value={stat.value} suffix={stat.suffix} />}
-                </p>
-                <p className="mt-3 max-w-[20ch] text-[14px] leading-snug text-ink-soft">{stat.label}</p>
-              </div>
-            </Reveal>
-          ))}
+          {stats.map((stat, i) => {
+            const numericValue = Number.parseInt(stat.value, 10)
+            const isNumeric = !Number.isNaN(numericValue) && String(numericValue) === stat.value.trim()
+            return (
+              <Reveal key={stat.label} delay={i * 0.06}>
+                <div className="rule-top pt-5">
+                  <p className="display-stat text-ink">
+                    {isNumeric ? <Counter value={numericValue} suffix={stat.suffix} /> : stat.value}
+                  </p>
+                  <p className="mt-3 max-w-[20ch] text-[14px] leading-snug text-ink-soft">{stat.label}</p>
+                </div>
+              </Reveal>
+            )
+          })}
         </div>
 
         {/* Featured story */}
         <Reveal delay={0.1}>
           <article className="mt-20 grid items-center gap-10 lg:mt-24 lg:grid-cols-2 lg:gap-16">
             <figure className="relative order-1 aspect-[4/3] overflow-hidden rounded-2xl lg:order-2">
-              <img
-                src="/community2.jpg"
-                alt="Family strengthening meeting in Simbaru"
-                className="h-full w-full object-cover"
-                loading="lazy"
-              />
+              <img src={storyImage} alt={storyTitle} className="h-full w-full object-cover" loading="lazy" />
             </figure>
 
             <div className="order-2 lg:order-1">
-              <p className="eyebrow text-ink-faint">Story</p>
-              <h3 className="display-lg mt-3 text-ink text-balance">Simbaru</h3>
-              <p className="body-copy mt-5 max-w-[48ch]">
-                When school fees and materials were out of reach, families had to choose which child would keep
-                learning. Today every supported child in Simbaru is enrolled and followed up through the school year.
-              </p>
+              <p className="eyebrow text-ink-faint">{storyEyebrow}</p>
+              <h3 className="display-lg mt-3 text-ink text-balance">{storyTitle}</h3>
+              <p className="body-copy mt-5 max-w-[48ch]">{storyBody}</p>
               <Link href="/gallery" className="link-arrow mt-8">
                 See their story
                 <ArrowUpRight className="h-4 w-4" aria-hidden />

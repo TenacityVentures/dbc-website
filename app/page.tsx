@@ -8,19 +8,24 @@ import { WhereWeWork } from "@/components/where-we-work"
 import { WaysToGive } from "@/components/ways-to-give"
 import { StoryCta } from "@/components/story-cta"
 import { SiteFooter } from "@/components/site-footer"
+import { getPageContent } from "@/lib/content-data"
 
-export default function Home() {
+export const revalidate = 0
+
+export default async function Home() {
+  const content = await getPageContent("home")
+
   return (
     <>
       <SiteHeader />
       <main>
-        <Hero />
+        <Hero {...content.hero} />
         <WhatWeDo />
-        <About />
-        <QuoteBand />
-        <Impact />
-        <WhereWeWork />
-        <WaysToGive />
+        <About {...content.about} />
+        <QuoteBand {...content.quote} />
+        <Impact {...content.impact} />
+        <WhereWeWork {...content["where-we-work"]} />
+        <WaysToGive {...content["ways-to-give"]} />
         <StoryCta />
       </main>
       <SiteFooter />

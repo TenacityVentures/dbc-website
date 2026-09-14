@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client"
 
 const LINKS = [
   { href: "/admin", label: "Dashboard" },
+  { href: "/admin/content", label: "Site content" },
   { href: "/admin/gallery", label: "Gallery" },
   { href: "/admin/stories", label: "Stories" },
 ]

@@ -3,21 +3,25 @@
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import { Reveal } from "@/components/reveal"
+import { CONTENT_DEFAULTS } from "@/lib/content-defaults"
 
-const FIELD = [
-  { src: "/team.jpg", caption: "School materials distribution", place: "Simbaru" },
-  { src: "/community.jpg", caption: "Community development meeting", place: "Bagbo" },
-  { src: "/outside-school.jpg", caption: "Outdoor learning session", place: "Tikonko" },
-]
+type FieldItem = { src: string; caption: string; place: string }
 
-export function WhereWeWork() {
+type WhereWeWorkProps = {
+  title?: string
+  items?: FieldItem[]
+}
+
+const DEFAULTS = CONTENT_DEFAULTS.home["where-we-work"]
+
+export function WhereWeWork({ title = DEFAULTS.title, items = DEFAULTS.items }: WhereWeWorkProps) {
   return (
     <section id="where-we-work" className="bg-white pb-24 lg:pb-32">
       <div className="shell">
         <div className="mb-12 flex flex-wrap items-end justify-between gap-6 lg:mb-14">
           <Reveal>
             <p className="accent mb-2 text-ink-faint">Where we work</p>
-            <h2 className="display-lg text-ink">Five communities in Bo District.</h2>
+            <h2 className="display-lg text-ink">{title}</h2>
           </Reveal>
           <Reveal delay={0.08}>
             <Link href="/gallery" className="link-arrow">
@@ -28,8 +32,8 @@ export function WhereWeWork() {
         </div>
 
         <div className="grid gap-6 sm:grid-cols-3 lg:gap-8">
-          {FIELD.map((item, i) => (
-            <Reveal key={item.src} delay={i * 0.08}>
+          {items.map((item, i) => (
+            <Reveal key={`${item.src}-${i}`} delay={i * 0.08}>
               <figure className="group">
                 <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-mist">
                   <img
