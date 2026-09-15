@@ -54,10 +54,10 @@ export const CONTACT = {
   address: "Simbaru-2, Hanci Road, Bo, Sierra Leone",
   phone: "+232 76 762965",
   phoneHref: "tel:+23276762965",
-  email: "mohamedskillz32@gmail.com",
+  email: "dreambigforchildren@gmail.com",
   facebook: "https://www.facebook.com/profile.php?id=61560313693954",
   mailto:
-    "https://mail.google.com/mail/?view=cm&fs=1&to=mohamedskillz32@gmail.com&su=Partnership%20Inquiry",
+    "https://mail.google.com/mail/?view=cm&fs=1&to=dreambigforchildren@gmail.com&su=Partnership%20Inquiry",
 }
 
 export const FOOTER_COLUMNS: { heading: string; links: NavChild[] }[] = [
