@@ -12,10 +12,10 @@ export default function AdminContentPage() {
           <Link
             key={`${block.page}-${block.blockKey}`}
             href={`/admin/content/${block.page}/${block.blockKey}`}
-            className="flex items-center justify-between px-5 py-4 hover:bg-mist"
+            className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 px-5 py-4 hover:bg-mist"
           >
             <span className="text-[15px] font-medium text-ink">{block.label}</span>
-            <span className="text-[12px] uppercase tracking-wide text-ink-faint">{block.page}</span>
+            <span className="shrink-0 text-[12px] uppercase tracking-wide text-ink-faint">{block.page}</span>
           </Link>
         ))}
       </div>

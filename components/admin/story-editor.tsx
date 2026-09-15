@@ -117,7 +117,7 @@ export function StoryEditor({ initialStory }: StoryEditorProps) {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <Link href="/admin/stories" className="text-[13px] text-ink-faint hover:text-ink">
             ← All stories
@@ -125,7 +125,7 @@ export function StoryEditor({ initialStory }: StoryEditorProps) {
           <h1 className="display-md mt-2 text-ink">{id ? "Edit story" : "New story"}</h1>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <div className="flex rounded-full border border-line p-1">
             <button
               type="button"

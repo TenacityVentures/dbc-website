@@ -37,8 +37,11 @@ export function StoriesList({ initialStories }: { initialStories: StoryRow[] }) 
     <div className="mt-8 divide-y divide-line rounded-2xl border border-line bg-white">
       {stories.map((story) => (
         <div key={story.id} className="flex items-center justify-between gap-4 px-5 py-4">
-          <div className="min-w-0">
-            <Link href={`/admin/stories/${story.id}`} className="truncate text-[15px] font-medium text-ink hover:underline">
+          <div className="min-w-0 flex-1">
+            <Link
+              href={`/admin/stories/${story.id}`}
+              className="block truncate text-[15px] font-medium text-ink hover:underline"
+            >
               {story.title || "Untitled story"}
             </Link>
             <p className="mt-0.5 text-[12px] text-ink-faint">
