@@ -136,6 +136,17 @@ export const CONTENT_BLOCKS: BlockDef[] = [
           { key: "body", label: "Body", type: "textarea" },
         ],
       },
+      {
+        key: "partnerLogos",
+        label: "Partner logos",
+        type: "list",
+        itemLabel: "Partner",
+        itemFields: [
+          { key: "logo", label: "Logo", type: "image" },
+          { key: "name", label: "Name", type: "text" },
+          { key: "href", label: "Link (optional)", type: "text" },
+        ],
+      },
     ],
   },
   {

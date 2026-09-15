@@ -76,6 +76,7 @@ export const CONTENT_DEFAULTS: Record<string, Record<string, any>> = {
           body: "Bring vocational training to parents and youth so families can earn and care for their children.",
         },
       ],
+      partnerLogos: [] as { logo: string; name: string; href?: string }[],
     },
     "what-we-do": {
       eyebrow: "What we do",

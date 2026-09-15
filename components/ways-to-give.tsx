@@ -6,11 +6,13 @@ import { Reveal, SectionHeading } from "@/components/reveal"
 import { CONTENT_DEFAULTS } from "@/lib/content-defaults"
 
 type Partner = { title: string; body: string }
+type PartnerLogo = { logo: string; name: string; href?: string }
 
 type WaysToGiveProps = {
   title?: string
   intro?: string
   partners?: Partner[]
+  partnerLogos?: PartnerLogo[]
 }
 
 const DEFAULTS = CONTENT_DEFAULTS.home["ways-to-give"]
@@ -19,6 +21,7 @@ export function WaysToGive({
   title = DEFAULTS.title,
   intro = DEFAULTS.intro,
   partners = DEFAULTS.partners,
+  partnerLogos = DEFAULTS.partnerLogos,
 }: WaysToGiveProps) {
   return (
     <section id="get-involved" className="bg-mist py-24 lg:py-32">
@@ -34,6 +37,40 @@ export function WaysToGive({
               </div>
             </Reveal>
           ))}
+
+          {partnerLogos.length > 0 && (
+            <Reveal delay={0.16}>
+              <div className="mt-10">
+                <p className="eyebrow text-ink-faint">In partnership with</p>
+                <div className="mt-5 flex flex-wrap items-center gap-x-10 gap-y-6">
+                  {partnerLogos.map((partner, i) => {
+                    const logo = (
+                      <img
+                        src={partner.logo}
+                        alt={partner.name}
+                        className="h-9 w-auto object-contain grayscale opacity-70 transition duration-300 hover:grayscale-0 hover:opacity-100"
+                      />
+                    )
+                    return partner.href ? (
+                      <a
+                        key={`${partner.name}-${i}`}
+                        href={partner.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={partner.name}
+                      >
+                        {logo}
+                      </a>
+                    ) : (
+                      <span key={`${partner.name}-${i}`} aria-label={partner.name}>
+                        {logo}
+                      </span>
+                    )
+                  })}
+                </div>
+              </div>
+            </Reveal>
+          )}
 
           <Reveal delay={0.2}>
             <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
