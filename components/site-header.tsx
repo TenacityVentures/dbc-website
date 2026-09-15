@@ -35,16 +35,19 @@ export function SiteHeader() {
       <div className="shell flex h-[var(--header-h)] items-center justify-between">
         <Link
           href="/"
-          className="group flex items-center gap-2.5 text-ink"
+          className="group flex flex-col items-center justify-center text-ink"
           aria-label="Dream Big for Children — home"
         >
-          <img
-            src="/brand/logo.png"
-            alt=""
-            className="h-8 w-8 object-contain transition-transform duration-500 ease-out group-hover:scale-[1.06]"
-            aria-hidden
-          />
-          <span className="text-[17px] font-normal tracking-[-0.02em] text-ink">Dream Big</span>
+          <div className="flex items-center jutify-center gap-2.5">
+            <img
+              src="/brand/logo.png"
+              alt=""
+              className="h-14 w-14 object-contain transition-transform duration-500 ease-out group-hover:scale-[1.06]"
+              aria-hidden
+            />
+            <span className="text-[17px] -mt-4 font-normal tracking-[-0.02em] text-ink">Dream Big</span><br />
+          </div>
+          <span className="ml-14 -mt-7 text-[14px] font-normal tracking-[-0.02em] text-ink">For Children</span>
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
