@@ -76,7 +76,23 @@ export const CONTENT_DEFAULTS: Record<string, Record<string, any>> = {
           body: "Bring vocational training to parents and youth so families can earn and care for their children.",
         },
       ],
-      partnerLogos: [] as { logo: string; name: string; href?: string }[],
+      partnerLogos: [
+        {
+          logo: "https://soeppxwewpkdfflzhvlf.supabase.co/storage/v1/object/public/site-content/home/ways-to-give/partner-sos.jpg",
+          name: "SOS Children's Villages",
+          href: "",
+        },
+        {
+          logo: "https://soeppxwewpkdfflzhvlf.supabase.co/storage/v1/object/public/site-content/home/ways-to-give/partner-morningstar.jpg",
+          name: "Morning Star Clinic",
+          href: "",
+        },
+        {
+          logo: "https://soeppxwewpkdfflzhvlf.supabase.co/storage/v1/object/public/site-content/home/ways-to-give/partner-nehado.jpg",
+          name: "NEHADO",
+          href: "",
+        },
+      ],
     },
     "what-we-do": {
       eyebrow: "What we do",

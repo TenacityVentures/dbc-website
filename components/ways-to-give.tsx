@@ -42,14 +42,16 @@ export function WaysToGive({
             <Reveal delay={0.16}>
               <div className="mt-10">
                 <p className="eyebrow text-ink-faint">In partnership with</p>
-                <div className="mt-5 flex flex-wrap items-center gap-x-10 gap-y-6">
+                <div className="mt-5 flex flex-wrap items-center gap-3">
                   {partnerLogos.map((partner, i) => {
-                    const logo = (
-                      <img
-                        src={partner.logo}
-                        alt={partner.name}
-                        className="h-9 w-auto object-contain grayscale opacity-70 transition duration-300 hover:grayscale-0 hover:opacity-100"
-                      />
+                    const card = (
+                      <div className="flex h-16 items-center justify-center rounded-xl border border-line bg-white px-5 transition-colors hover:border-ink/25">
+                        <img
+                          src={partner.logo}
+                          alt={partner.name}
+                          className="h-8 w-auto max-w-[140px] object-contain"
+                        />
+                      </div>
                     )
                     return partner.href ? (
                       <a
@@ -59,11 +61,11 @@ export function WaysToGive({
                         rel="noopener noreferrer"
                         aria-label={partner.name}
                       >
-                        {logo}
+                        {card}
                       </a>
                     ) : (
                       <span key={`${partner.name}-${i}`} aria-label={partner.name}>
-                        {logo}
+                        {card}
                       </span>
                     )
                   })}
